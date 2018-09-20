@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".SplashFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/TitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="@string/title"
+        android:textColor="@android:color/white"
+        android:textScaleX="1"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/SplashImage"
+        android:layout_width="384dp"
+        android:layout_height="337dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="120dp"
+        android:src="@mipmap/ic_launcher_foreground" />
+</FrameLayout>
