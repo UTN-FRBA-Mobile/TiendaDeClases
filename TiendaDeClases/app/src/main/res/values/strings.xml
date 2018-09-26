@@ -7,7 +7,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="tutorial1_text">Bienvenido a la aplicación oficial de TiendaDeClases!</string>
     <string name="tutorial1_text2">Seguí estos pasos para empezar a tomar clases:</string>
-    <string name="tutorial2_text">Crea tu cuenta</string>
+    <string name="tutorial2_text">Creá tu cuenta</string>
     <string name="tutorial3_text">Agregá los temas que te interesen</string>
     <string name="tutorial4_text">Contactá directamente con un profesor y empezá!</string>
 </resources>
