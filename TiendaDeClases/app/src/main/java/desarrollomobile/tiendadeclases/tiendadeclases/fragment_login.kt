@@ -17,13 +17,13 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [Tutorial1Fragment.OnFragmentInteractionListener] interface
+ * [fragment_login.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [Tutorial1Fragment.newInstance] factory method to
+ * Use the [fragment_login.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class Tutorial1Fragment : Fragment() {
+class fragment_login : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,13 +35,12 @@ class Tutorial1Fragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tutorial1, container, false)
+        return inflater.inflate(R.layout.fragment_fragment_login, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -86,12 +85,12 @@ class Tutorial1Fragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment Tutorial1Fragment.
+         * @return A new instance of fragment fragment_login.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                Tutorial1Fragment().apply {
+                fragment_login().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)
