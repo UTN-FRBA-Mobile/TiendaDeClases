@@ -1,4 +1,4 @@
-package desarrollomobile.tiendadeclases.tiendadeclases
+package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
 import android.content.Context
 import android.net.Uri
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import desarrollomobile.tiendadeclases.tiendadeclases.R
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,13 +18,13 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [MessagesFragment.OnFragmentInteractionListener] interface
+ * [ClassesFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [MessagesFragment.newInstance] factory method to
+ * Use the [ClassesFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class MessagesFragment : Fragment() {
+class ClassesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -40,7 +41,7 @@ class MessagesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_messages, container, false)
+        return inflater.inflate(R.layout.fragment_classes, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -85,12 +86,12 @@ class MessagesFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MessagesFragment.
+         * @return A new instance of fragment ClassesFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                MessagesFragment().apply {
+                ClassesFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)

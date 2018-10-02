@@ -1,9 +1,13 @@
-package desarrollomobile.tiendadeclases.tiendadeclases
+package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriesFragment
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
+import desarrollomobile.tiendadeclases.tiendadeclases.R
 
 class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteractionListener, ClassesFragment.OnFragmentInteractionListener, MessagesFragment.OnFragmentInteractionListener {
     override fun onFragmentInteraction(uri: Uri) {
