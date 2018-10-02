@@ -9,18 +9,14 @@
     <!-- TODO: Update blank fragment layout -->
 
     <HorizontalScrollView
-        android:id="@+id/HorizontalScroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        android:layoutDirection="ltr"
-        android:layoutMode="opticalBounds"
-        android:transitionGroup="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/LinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -34,8 +30,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:baselineAligned="false"
-                    android:elevation="0dp"
                     android:gravity="center"
                     android:lines="3"
                     android:text="@string/tutorial1_text"
@@ -107,9 +101,7 @@
                     android:layout_marginBottom="150dp"
                     android:layout_weight="1"
                     android:background="@color/colorAccent"
-                    android:elevation="0dp"
                     android:gravity="center"
-                    android:requiresFadingEdge="horizontal|vertical"
                     android:text="@string/tutorial4_button"
                     android:textColor="@android:color/white" />
             </LinearLayout>

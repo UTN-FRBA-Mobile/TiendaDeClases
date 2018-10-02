@@ -1,28 +1,35 @@
 package desarrollomobile.tiendadeclases.tiendadeclases
 
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
-import android.widget.Button
-import java.util.*
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionListener, Tutorial1Fragment.OnFragmentInteractionListener, LoginFragment.OnFragmentInteractionListener {
+    override fun onFragmentInteraction(uri: Uri) {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_splash)
+        setContentView(R.layout.activity_main)
+        showAnimatedFragment(SplashFragment())
+
         Handler().postDelayed(
                 {
-                    setContentView(R.layout.fragment_tutorial1)
-
-                    val button = findViewById<Button>(R.id.Tutorial4_button)
-                    button.setOnClickListener{
-                        setContentView(R.layout.fragment_fragment_login)
-                    }
+                    showAnimatedFragment(Tutorial1Fragment())
                 },3500 )
     }
 
+    fun showAnimatedFragment(fragment: Fragment) {
+        supportFragmentManager
+                .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.container, fragment)
+                .commit()
+    }
 
 
 }
