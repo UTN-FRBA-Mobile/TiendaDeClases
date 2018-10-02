@@ -3,10 +3,12 @@ package desarrollomobile.tiendadeclases.tiendadeclases
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.app.Fragment
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -47,6 +49,19 @@ class Tutorial1Fragment : Fragment() {
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val button = view.findViewById<Button>(R.id.Tutorial4_button)
+        button.setOnClickListener{
+            getFragmentManager()
+                    ?.beginTransaction()
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    ?.replace(R.id.container, LoginFragment())
+                    ?.commit()
+        }
     }
 
     override fun onAttach(context: Context) {
