@@ -1,6 +1,8 @@
 # Built application files
 *.apk
 *.ap_
+TiendaDeClases/.idea/kotlinc.xml
+TiendaDeClases/.idea/vcs.xml
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -33,6 +35,14 @@ proguard/
 captures/
 
 # IntelliJ
+TiendaDeClases/.idea/workspace.xml
+TiendaDeClases/.idea/tasks.xml
+TiendaDeClases/.idea/gradle.xml
+TiendaDeClases/.idea/assetWizardSettings.xml
+TiendaDeClases/.idea/dictionaries
+TiendaDeClases/.idea/libraries
+TiendaDeClases/.idea/caches
+TiendaDeClases/.idea/caches/build_file_checksums.ser
 *.iml
 .idea/workspace.xml
 .idea/tasks.xml
