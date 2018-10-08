@@ -12,7 +12,8 @@
         android:id="@+id/label_usuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_usuario" />
+        android:text="@string/login_usuario"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/text_usuario"
@@ -25,7 +26,8 @@
         android:id="@+id/label_contraseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_password" />
+        android:text="@string/login_password"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/text_contraseña"
@@ -38,6 +40,7 @@
         android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_ingresar" />
+        android:text="@string/login_ingresar"
+        android:textSize="18sp" />
 
 </LinearLayout>

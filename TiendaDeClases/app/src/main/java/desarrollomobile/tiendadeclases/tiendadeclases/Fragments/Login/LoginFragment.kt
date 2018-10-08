@@ -1,12 +1,18 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login
 
+
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 
 
@@ -42,6 +48,23 @@ class LoginFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val button = view.findViewById<Button>(R.id.button_login)
+
+        button.setOnClickListener{
+            if (loginCondition())
+                startActivity(Intent(this.context, HomeActivity::class.java))
+        }
+    }
+
+    fun loginCondition(): Boolean {
+        var username = view?.findViewById<TextView>(R.id.text_usuario)?.text.toString()
+        var password = view?.findViewById<TextView>(R.id.text_contraseña)?.text.toString()
+        return username.equals("admin") && password.equals("admin")
     }
 
     // TODO: Rename method, update argument and hook method into UI event
