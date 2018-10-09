@@ -38,5 +38,6 @@ class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteracti
         var navigation = findViewById<BottomNavigationView>(R.id.navigation)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.selectedItemId = R.id.navigation_categories
     }
 }
