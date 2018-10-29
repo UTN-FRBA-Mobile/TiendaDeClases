@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list"
+    android:name="desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Home.ClassesFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_classes" />
-
-</FrameLayout>
+    tools:layoutManager="LinearLayoutManager"
+    tools:context=".ClassesFragment"
+    tools:listitem="@layout/class_main" />
