@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
@@ -17,7 +18,7 @@ class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteracti
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_categories -> {
-                supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, CategoriesFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, CategoriasFragment()).commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_classes -> {
