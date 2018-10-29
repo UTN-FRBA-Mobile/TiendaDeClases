@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "700633045997",
+    "firebase_url": "https://tiendadeclases-utn.firebaseio.com",
+    "project_id": "tiendadeclases-utn",
+    "storage_bucket": "tiendadeclases-utn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700633045997:android:9a6dd4a1c9208a6c",
+        "android_client_info": {
+          "package_name": "desarrollomobile.tiendadeclases.tiendadeclases"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700633045997-nmdgous2c80rm7219oj2j7u1andrk0fl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDktiz8qX0Gk4QPXJS6IIYfI6lwmtlojM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
