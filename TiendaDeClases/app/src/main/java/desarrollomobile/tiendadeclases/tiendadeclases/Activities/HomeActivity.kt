@@ -10,7 +10,7 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFrag
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 
-class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteractionListener, ClassesFragment.OnFragmentInteractionListener, MessagesFragment.OnFragmentInteractionListener {
+class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteractionListener, ClassesFragment.OnListFragmentInteractionListener, MessagesFragment.OnFragmentInteractionListener {
     override fun onFragmentInteraction(uri: Uri) {
 
     }

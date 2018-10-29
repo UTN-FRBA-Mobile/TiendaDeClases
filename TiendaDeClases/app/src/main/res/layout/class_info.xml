@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView android:id="@+id/className"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:text="Nombrede la clase" />
+    <TextView android:id="@+id/classDatePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/className"
+        android:layout_alignBaseline="@id/className"
+        tools:text=" Fecha y precio" />
+    <TextView android:id="@+id/classDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/className"
+        tools:text="Descripción de la clase" />
+</RelativeLayout>
