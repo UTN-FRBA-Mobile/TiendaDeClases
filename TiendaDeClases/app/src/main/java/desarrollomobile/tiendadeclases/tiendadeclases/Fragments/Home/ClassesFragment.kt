@@ -1,13 +1,20 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
+import desarrollomobile.tiendadeclases.tiendadeclases.classes.ClassesAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,18 +32,16 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class ClassesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private var columnCount = 1
+
+    private var listener: OnListFragmentInteractionListener? = null
+
+    val api by lazy {
+        Api.create()
     }
+
+    var disposable: Disposable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,17 +49,42 @@ class ClassesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_classes, container, false)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Set the adapter
+        if (view is RecyclerView) {
+            with(view) {
+                var tweetsAdapter = ClassesAdapter(listener)
+                layoutManager = LinearLayoutManager(context)
+                adapter = tweetsAdapter
+                disposable =
+                        api.getClasses()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(
+                                        { result ->
+                                            tweetsAdapter.items = result.classes
+                                            tweetsAdapter.notifyDataSetChanged()
+                                        },
+                                        {
+                                            error ->
+                                            Toast.makeText(activity, "No se encontraron clases! " + error, Toast.LENGTH_LONG).show() }
+                                )
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        disposable?.dispose()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is OnListFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
         }
     }
 
@@ -74,28 +104,11 @@ class ClassesFragment : Fragment() {
      * (http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+    interface OnListFragmentInteractionListener {
     }
-
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ClassesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                ClassesFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+        fun newInstance() =
+                ClassesFragment()
     }
 }
