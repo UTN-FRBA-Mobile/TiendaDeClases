@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <!--android:layout_marginEnd="@dimen/itemPadding"-->
+    android:layout_height="150dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true">
 
-    <ImageView
-         android:id="@+id/ivCategoria"
-         android:layout_width="150dp"
-         android:layout_height="150dp"
-         android:layout_centerInParent="false"
-         android:background="@color/colorPrimary"/>
-
-    <TextView
-       android:id="@+id/tvCategoria"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Categoría!"
-       android:layout_below="@+id/ivCategoria"
-       android:textSize="30sp" />
-
-    <TextView
-       android:id="@+id/tvSubCategoria1"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Sub Categorías!"
-       android:layout_below="@+id/tvCategoria"
-       android:textSize="26sp" />
-
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="56dp"
-        android:layout_marginEnd="66dp" />
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+
+        <ImageView
+            android:id="@+id/ivCategoria"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/tvCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Categoría!"
+            android:layout_toRightOf="@+id/ivCategoria"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tvSubCategoria1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Sub Categorías!"
+            android:layout_below="@+id/tvCategoria"
+            android:layout_alignLeft="@+id/tvCategoria" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

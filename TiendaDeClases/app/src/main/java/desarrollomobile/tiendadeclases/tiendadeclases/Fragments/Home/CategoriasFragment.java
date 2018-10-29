@@ -3,6 +3,8 @@ package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.CategoriasAdapter;
 import desarrollomobile.tiendadeclases.tiendadeclases.ApiClient;
 import desarrollomobile.tiendadeclases.tiendadeclases.R;
 import desarrollomobile.tiendadeclases.tiendadeclases.Service.Categoria;
@@ -28,6 +31,12 @@ import retrofit2.Response;
  */
 public class CategoriasFragment extends Fragment {
 
+    /*
+    Declarar instancias globales
+    */
+    private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager lManager;
     private ImageView imagenCat;
     private TextView nombreUsuario, subCat1;
 
@@ -41,7 +50,13 @@ public class CategoriasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_categorias, container, false);
-        inicializarVistas(view);
+        //inicializarVistas(view);
+        // Obtener el Recycler
+        recycler = (RecyclerView) view.findViewById(R.id.CatsRecycler);
+        recycler.setHasFixedSize(true);
+        // Usar un administrador para LinearLayout
+        lManager = new LinearLayoutManager(getActivity());
+        recycler.setLayoutManager(lManager);
         obtenerCategorias();
         return view;
     }
@@ -60,7 +75,10 @@ public class CategoriasFragment extends Fragment {
             public void onResponse(Call<ListaDeCategorias> call, Response<ListaDeCategorias> response) {
                 if (response.isSuccessful()) {
                     ListaDeCategorias listaDeCategorias = response.body();
-                    mostrarCategorias(listaDeCategorias.getCategorias());
+                    // Crear un nuevo adaptador
+                    adapter = new CategoriasAdapter(listaDeCategorias.getCategorias());
+                    recycler.setAdapter(adapter);
+                    //mostrarCategorias(listaDeCategorias.getCategorias());
                 } else {
                     Toast.makeText(getActivity(), "Fallo", Toast.LENGTH_SHORT).show();
                 }
