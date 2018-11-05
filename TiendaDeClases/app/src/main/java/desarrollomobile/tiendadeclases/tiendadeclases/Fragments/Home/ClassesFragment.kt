@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
+import desarrollomobile.tiendadeclases.tiendadeclases.classes.Class
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.ClassesAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -51,25 +53,15 @@ class ClassesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val homeActivity = this.activity as HomeActivity
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
-                var tweetsAdapter = ClassesAdapter(listener)
+                var classesAdapter = ClassesAdapter(listener)
                 layoutManager = LinearLayoutManager(context)
-                adapter = tweetsAdapter
-                disposable =
-                        api.getClasses()
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(
-                                        { result ->
-                                            tweetsAdapter.items = result.classes
-                                            tweetsAdapter.notifyDataSetChanged()
-                                        },
-                                        {
-                                            error ->
-                                            Toast.makeText(activity, "No se encontraron clases! " + error, Toast.LENGTH_LONG).show() }
-                                )
+                adapter = classesAdapter
+                classesAdapter.items = homeActivity.classesList
+                classesAdapter.notifyDataSetChanged()
             }
         }
     }

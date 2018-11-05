@@ -4,16 +4,24 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
+import desarrollomobile.tiendadeclases.tiendadeclases.classes.Class
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteractionListener, ClassesFragment.OnListFragmentInteractionListener, MessagesFragment.OnFragmentInteractionListener {
     override fun onFragmentInteraction(uri: Uri) {
 
     }
+
+    var classesList: MutableList<Class> = ArrayList<Class>()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -40,5 +48,19 @@ class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteracti
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_categories
+
+        var disposable: Disposable? = null
+        disposable = Api.create().getClasses()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result ->
+                            classesList = result.classes
+                        },
+                        {
+                            error ->
+                            Toast.makeText(this, "No se encontraron clases! " + error, Toast.LENGTH_LONG).show() }
+                )
+
     }
 }
