@@ -1,10 +1,10 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.classes;
 
 public class Class {
-    private String name;
-    private String date;
-    private String description;
-    private String price;
+    public String name;
+    public String date;
+    public String description;
+    public String price;
     public String getName() {
         return name;
     }

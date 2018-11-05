@@ -10,7 +10,7 @@
         android:layout_alignParentStart="true"
         android:textSize="17sp"
         android:textStyle="bold"
-        tools:text="Nombrede la clase" />
+        tools:text="Nombre de la clase" />
     <TextView android:id="@+id/classDatePrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
