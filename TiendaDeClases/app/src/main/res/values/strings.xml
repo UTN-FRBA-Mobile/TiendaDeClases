@@ -21,6 +21,8 @@
     <string name="title_classes">Mis clases</string>
     <string name="title_messages">Mensajes</string>
 
+    <string name="title_formulario">Formulario de Búsqueda</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
