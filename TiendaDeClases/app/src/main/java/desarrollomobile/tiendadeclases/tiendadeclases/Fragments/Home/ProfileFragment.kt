@@ -1,13 +1,23 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
+import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import org.w3c.dom.Text
+import android.graphics.drawable.ColorDrawable
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.MainActivity
+import java.util.*
+import android.widget.DatePicker
+
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,12 +36,16 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
+    private val TAG = "ProfileFragment"
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private var mDisplayDate: TextView? = null
+    private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -41,7 +55,36 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+
+        val viewInflated = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        mDisplayDate = viewInflated.findViewById(R.id.user_birthday)
+
+        mDisplayDate?.setOnClickListener(View.OnClickListener {
+            val cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH)
+            val day = cal.get(Calendar.DAY_OF_MONTH)
+
+            val dialog = DatePickerDialog(
+                    this.context,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    mDateSetListener,
+                    year, month, day)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+        })
+
+        mDateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+            var month = month
+            month = month + 1
+
+            val date = month.toString() + "/" + day + "/" + year
+            mDisplayDate?.setText(date)
+        }
+
+
+        return viewInflated
     }
 
     // TODO: Rename method, update argument and hook method into UI event
