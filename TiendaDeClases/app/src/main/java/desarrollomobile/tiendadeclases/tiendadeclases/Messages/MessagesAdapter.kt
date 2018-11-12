@@ -1,14 +1,18 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Messages
 
 import android.graphics.Color
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessageFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.message_info.view.*
+
 
 class MessagesAdapter(private val mListener: MessagesFragment.OnListFragmentInteractionListener?) : RecyclerView.Adapter<MessagesAdapter.ViewHolder>() {
 
@@ -25,7 +29,6 @@ class MessagesAdapter(private val mListener: MessagesFragment.OnListFragmentInte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // dummy
         var item = items[position]
         holder.description.text = item.description
         if (!item.getRead())
@@ -34,7 +37,27 @@ class MessagesAdapter(private val mListener: MessagesFragment.OnListFragmentInte
 
     override fun getItemCount(): Int = items.size
 
-    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+
+    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView), View.OnClickListener {
         val description: TextView = mView.messageDescription
+
+
+        init {
+            mView.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View) {
+            var message: Message = items[adapterPosition]
+            view.setBackgroundColor(Color.WHITE)
+            message.setRead(true)
+            val activity = view.getContext() as AppCompatActivity
+            val messageFragment = MessageFragment()
+            val arguments = Bundle()
+            arguments.putString("messageId", message.getId().toString())
+            messageFragment.setArguments(arguments)
+            activity.supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, messageFragment).commit()
+        }
+
     }
+
 }
