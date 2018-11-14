@@ -1,5 +1,7 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
+import android.app.Activity.RESULT_FIRST_USER
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.Color
@@ -13,9 +15,14 @@ import android.widget.TextView
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import org.w3c.dom.Text
 import android.graphics.drawable.ColorDrawable
+import android.widget.Button
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.MainActivity
 import java.util.*
 import android.widget.DatePicker
+import com.google.android.gms.location.places.ui.PlacePicker
+import android.widget.Toast
+import com.google.android.gms.location.places.Place
+import android.content.Intent
 
 
 
@@ -42,6 +49,10 @@ class ProfileFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
+    private var mDisplayLocation: TextView? = null
+    private var mLocationButton: Button? = null
+    private val PLACE_PICKER_REQUEST = 1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,8 +94,27 @@ class ProfileFragment : Fragment() {
             mDisplayDate?.setText(date)
         }
 
+        mLocationButton = viewInflated.findViewById(R.id.change_location)
+
+        mLocationButton?.setOnClickListener(View.OnClickListener {
+            val builder = PlacePicker.IntentBuilder()
+
+            startActivityForResult(builder.build(activity), PLACE_PICKER_REQUEST)
+
+        })
 
         return viewInflated
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                val place = PlacePicker.getPlace(context, data)
+                val locationLabel =  activity!!.findViewById<TextView>(R.id.user_location)
+
+                locationLabel.setText(place.latLng.toString())
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
