@@ -56,7 +56,6 @@ class LoginFragment : Fragment() {
         val button = view.findViewById<Button>(R.id.button_login)
 
         button.setOnClickListener{
-            if (loginCondition())
                 startActivity(Intent(this.context, HomeActivity::class.java))
         }
     }

@@ -19,7 +19,8 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_categories">Categorías</string>
     <string name="title_classes">Mis clases</string>
-    <string name="title_profile">Perfil</string>
+    <string name="menu_profile">Ver Perfil</string>
+    <string name="menu_logout">Salir</string>
     <string name="title_messages">Mensajes</string>
 
     <!-- TODO: Remove or change this placeholder text -->

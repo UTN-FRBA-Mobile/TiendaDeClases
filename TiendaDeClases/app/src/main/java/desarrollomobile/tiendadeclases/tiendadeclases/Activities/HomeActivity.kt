@@ -4,7 +4,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import android.widget.Toolbar
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ProfileFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
@@ -37,10 +40,6 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
                 supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, MessagesFragment()).commit()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_profile -> {
-                supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, ProfileFragment()).commit()
-                return@OnNavigationItemSelectedListener true
-            }
         }
         false
     }
@@ -48,8 +47,11 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        var navigation = findViewById<BottomNavigationView>(R.id.navigation)
 
+        var toolbar = findViewById<android.support.v7.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        var navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_categories
 
@@ -67,4 +69,20 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
                 )
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var mMenuInflater = menuInflater
+        mMenuInflater.inflate(R.menu.profile, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.menu_profile -> {
+                supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, ProfileFragment()).commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
