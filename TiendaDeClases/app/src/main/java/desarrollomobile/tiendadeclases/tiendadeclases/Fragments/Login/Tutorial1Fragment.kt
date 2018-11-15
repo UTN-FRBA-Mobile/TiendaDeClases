@@ -1,6 +1,7 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 
 
@@ -55,14 +58,29 @@ class Tutorial1Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val button = view.findViewById<Button>(R.id.Tutorial4_button)
-        button.setOnClickListener{
+        val buttonLogin = view.findViewById<Button>(R.id.Tutorial4_button)
+        buttonLogin.setOnClickListener{
             getFragmentManager()
                     ?.beginTransaction()
                     ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     ?.replace(R.id.container, LoginFragment())
                     ?.addToBackStack("tutorial")
                     ?.commit()
+        }
+
+        val buttonRegister = view.findViewById<Button>(R.id.Tutorial5_button)
+        buttonRegister.setOnClickListener {
+            getFragmentManager()
+                    ?.beginTransaction()
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    ?.replace(R.id.container, LoginFragment())
+                    ?.addToBackStack("tutorial")
+                    ?.commit()
+        }
+
+        val buttonNoLog = view.findViewById<TextView>(R.id.Tutorial6_button)
+        buttonNoLog.setOnClickListener {
+            startActivity(Intent(this.context, HomeActivity::class.java))
         }
     }
 
