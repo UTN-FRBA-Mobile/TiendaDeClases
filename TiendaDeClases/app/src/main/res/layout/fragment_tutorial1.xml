@@ -96,14 +96,33 @@
                     android:id="@+id/Tutorial4_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginBottom="150dp"
                     android:gravity="center"
                     android:text="@string/tutorial4_button"
                     android:textSize="18sp" />
+
+
+                <Button
+                    android:id="@+id/Tutorial5_button"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/tutorial5_button"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/Tutorial6_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/tutorial6_button"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+
+
+
+
             </LinearLayout>
 
         </LinearLayout>

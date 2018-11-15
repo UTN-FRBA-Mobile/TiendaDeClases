@@ -10,7 +10,9 @@
     <string name="tutorial2_text">Creá tu cuenta</string>
     <string name="tutorial3_text">Agregá los temas que te interesen</string>
     <string name="tutorial4_text">Contactá directamente con un profesor y empezá!</string>
-    <string name="tutorial4_button">Empezar</string>
+    <string name="tutorial4_button">Ya tengo cuenta</string>
+    <string name="tutorial5_button">Registrar</string>
+    <string name="tutorial6_button">Continuar como invitado</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="login_usuario">Nombre de usuario</string>

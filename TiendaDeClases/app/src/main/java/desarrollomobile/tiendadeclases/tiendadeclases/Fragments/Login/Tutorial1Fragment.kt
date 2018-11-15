@@ -61,6 +61,7 @@ class Tutorial1Fragment : Fragment() {
                     ?.beginTransaction()
                     ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     ?.replace(R.id.container, LoginFragment())
+                    ?.addToBackStack("tutorial")
                     ?.commit()
         }
     }
