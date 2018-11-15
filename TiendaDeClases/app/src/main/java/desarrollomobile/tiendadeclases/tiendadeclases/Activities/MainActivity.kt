@@ -1,5 +1,7 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -22,9 +24,20 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionLi
         setContentView(R.layout.activity_main)
         showAnimatedFragment(SplashFragment())
 
+        var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        val firstStart = preference.getBoolean("firstStart", true)
+
         Handler().postDelayed(
                 {
-                    showAnimatedFragment(Tutorial1Fragment())
+                    if(firstStart) {
+                        showAnimatedFragment(Tutorial1Fragment())
+                        val editor = preference.edit()
+                        editor.putBoolean("firstStart", false)
+                        editor.apply()
+                    } else {
+                        startActivity(Intent(baseContext, HomeActivity::class.java))
+
+                    }
                 }, 3500)
     }
 
