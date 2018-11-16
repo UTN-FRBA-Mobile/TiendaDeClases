@@ -1,5 +1,6 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -79,7 +80,7 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
             R.id.menu_profile -> {
-                supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, ProfileFragment()).commit()
+                startActivity(Intent(this, ProfileActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
