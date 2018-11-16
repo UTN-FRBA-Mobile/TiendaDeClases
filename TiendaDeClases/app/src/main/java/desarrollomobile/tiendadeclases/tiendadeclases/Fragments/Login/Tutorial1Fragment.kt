@@ -77,11 +77,6 @@ class Tutorial1Fragment : Fragment() {
                     ?.addToBackStack("tutorial")
                     ?.commit()
         }
-
-        val buttonNoLog = view.findViewById<TextView>(R.id.Tutorial6_button)
-        buttonNoLog.setOnClickListener {
-            startActivity(Intent(this.context, HomeActivity::class.java))
-        }
     }
 
     override fun onAttach(context: Context) {

@@ -1,5 +1,6 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Adapters;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,4 +52,7 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
         viewHolder.nombre.setText(items.get(i).getNombre());
         viewHolder.subCats.setText(items.get(i).getSubCats());
     }
+
+
+
 }

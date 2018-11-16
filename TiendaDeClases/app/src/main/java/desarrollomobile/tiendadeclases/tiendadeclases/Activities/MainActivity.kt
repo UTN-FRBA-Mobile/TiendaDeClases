@@ -30,15 +30,15 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionLi
         Handler().postDelayed(
                 {
                     if(firstStart) {
-                        showAnimatedFragment(Tutorial1Fragment())
-                        val editor = preference.edit()
+                        /*val editor = preference.edit()
                         editor.putBoolean("firstStart", false)
-                        editor.apply()
+                        editor.apply()*/
+                        startActivity(Intent(this, OnBoardingActivity::class.java))
                     } else {
-                        startActivity(Intent(baseContext, HomeActivity::class.java))
+                        startActivity(Intent(this, HomeActivity::class.java))
 
                     }
-                }, 3500)
+                }, 1500)
     }
 
     fun showAnimatedFragment(fragment: Fragment) {

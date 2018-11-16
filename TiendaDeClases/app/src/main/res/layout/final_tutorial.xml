@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="566dp"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/Tutorial4_Text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:lines="4"
+            android:text="@string/tutorial4_text"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/Tutorial4_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tutorial4_button"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/Tutorial5_button"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/tutorial5_button"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/Tutorial6_button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/tutorial6_button"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

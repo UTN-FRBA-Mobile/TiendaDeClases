@@ -22,6 +22,10 @@
         <activity
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home"></activity>
+        <activity
+            android:name=".Activities.OnBoardingActivity"
+            android:label="OnBoardingActivity"></activity>
+        <activity android:name=".Activities.LoginActivity" />
 
         <service android:name=".Services.MyFirebaseMessagingService">
             <intent-filter>

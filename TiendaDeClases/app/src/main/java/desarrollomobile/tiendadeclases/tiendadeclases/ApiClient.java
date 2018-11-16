@@ -9,6 +9,13 @@ public class ApiClient {
     private Retrofit mRetrofit;
     private static final ApiClient ourInstance = new ApiClient();
 
+    public String[] algo = {
+
+            "hola",
+            "todo",
+            "bien"
+    };
+
     public static ApiClient getInstance() {
         return ourInstance;
     }
