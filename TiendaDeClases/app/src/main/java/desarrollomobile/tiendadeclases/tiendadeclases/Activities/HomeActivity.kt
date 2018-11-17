@@ -25,6 +25,7 @@ class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteracti
 
     var classesList: MutableList<Class> = ArrayList<Class>()
     var messagesList: MutableList<Message> = ArrayList<Message>()
+    var messagesClassesList: MutableList<Class> = ArrayList<Class>()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {

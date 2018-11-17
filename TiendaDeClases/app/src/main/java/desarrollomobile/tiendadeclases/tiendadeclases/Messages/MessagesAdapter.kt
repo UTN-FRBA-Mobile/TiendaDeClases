@@ -1,13 +1,12 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Messages
 
 import android.graphics.Color
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessageFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
@@ -50,12 +49,9 @@ class MessagesAdapter(private val mListener: MessagesFragment.OnListFragmentInte
             var message: Message = items[adapterPosition]
             view.setBackgroundColor(Color.WHITE)
             message.setRead(true)
-            val activity = view.getContext() as AppCompatActivity
-            val messageFragment = MessageFragment()
-            val arguments = Bundle()
-            arguments.putString("messageId", message.getId().toString())
-            messageFragment.setArguments(arguments)
-            activity.supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, messageFragment).commit()
+            val activity = view.getContext() as HomeActivity
+            activity.messagesClassesList = message.getClasses()
+            activity.supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, MessageFragment()).commit()
         }
 
     }
