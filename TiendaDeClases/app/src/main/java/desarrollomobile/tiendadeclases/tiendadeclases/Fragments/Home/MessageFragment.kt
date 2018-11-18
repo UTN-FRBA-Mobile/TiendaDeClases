@@ -51,6 +51,8 @@ class MessageFragment : Fragment() {
         var disposable: Disposable? = null
     }
 
+    
+
     interface OnListFragmentInteractionListener : ClassesFragment.OnListFragmentInteractionListener {
     }
 
