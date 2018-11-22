@@ -1,12 +1,12 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.classes
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
@@ -45,13 +45,13 @@ class MessagesClassesAdapter(private val mListener: ClassesFragment.OnListFragme
         }
 
         fun addToClasses(v: View) {
-            Log.d("BREAKPOINT", adapterPosition.toString())
             var mutableItems = items.toMutableList()
             var item = mutableItems.removeAt(adapterPosition)
             items = mutableItems.toList()
             var activity = v.context as HomeActivity
             activity.classesList.add(item)
             notifyDataSetChanged()
+            Toast.makeText(v.context, "Agregaste la clase a 'Mis Clases'", Toast.LENGTH_SHORT).show()
         }
 
     }
