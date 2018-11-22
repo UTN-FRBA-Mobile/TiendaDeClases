@@ -40,9 +40,6 @@ class LoginActivity: AppCompatActivity() {
                 .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
         val userApi = retrofit.create(UsersApi::class.java)
 
-        val responsePost = userApi.addUser(User("aaa", "bbb", "ccc", "ddd"))
-        responsePost.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{it -> Log.i("User", it.message)}
-
         setContentView(R.layout.fragment_login)
 
         val button = findViewById<Button>(R.id.button_login)
@@ -53,7 +50,6 @@ class LoginActivity: AppCompatActivity() {
 
             val response = userApi.loginUser(User(userName.toString(), password.toString(), "", ""))
             response.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{it ->
-                Log.i("User", it.message)
                 if(it.status == 200) {
                     startActivity(Intent(this, HomeActivity::class.java))
                 } else {

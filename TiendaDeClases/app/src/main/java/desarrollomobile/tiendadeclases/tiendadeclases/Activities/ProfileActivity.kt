@@ -13,13 +13,12 @@ import android.widget.TextView
 import com.google.android.gms.location.places.ui.PlacePicker
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ProfileFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 import java.util.*
 
 class ProfileActivity: AppCompatActivity() {
 
     private val TAG = "ProfileFragment"
-    private var param1: String? = null
-    private var param2: String? = null
     private var listener: ProfileFragment.OnFragmentInteractionListener? = null
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null

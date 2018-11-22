@@ -27,6 +27,7 @@
             android:label="OnBoardingActivity"></activity>
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
 
         <service android:name=".Services.MyFirebaseMessagingService">
             <intent-filter>

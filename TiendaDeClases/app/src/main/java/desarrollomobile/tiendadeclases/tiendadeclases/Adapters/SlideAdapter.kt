@@ -12,6 +12,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.LoginActivity
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.ProfileActivity
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.RegisterActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 
 class SlideAdapter: PagerAdapter {
@@ -50,6 +52,11 @@ class SlideAdapter: PagerAdapter {
 
             btnLogin.setOnClickListener {
                 con.startActivity(Intent(con, LoginActivity::class.java))
+            }
+
+            btnRegister.setOnClickListener {
+                con.startActivity(Intent(con, RegisterActivity::class.java))
+
             }
 
 
