@@ -13,6 +13,8 @@ buildscript {
         classpath: 'com.google.firebase: firebase - messaging: 17.3.3'
         classpath 'com.google.android.gms:play-services-places:16.0.0'
         classpath 'com.google.android.gms:play-services-maps:16.0.0'
+        classpath 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+
 
 
         // NOTE: Do not place your application dependencies here; they belong
