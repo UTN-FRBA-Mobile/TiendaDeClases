@@ -15,21 +15,6 @@
         android:textStyle="bold"
         tools:text="Nombre de la clase" />
 
-    <TextView
-        android:id="@+id/class_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/className"
-        android:layout_toEndOf="@id/className"
-        tools:text=" Fecha y precio" />
-
-    <TextView
-        android:id="@+id/class_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/className"
-        tools:text="Descripción de la clase" />
-
     <ImageButton
         android:id="@+id/favButton"
         android:layout_width="wrap_content"
@@ -37,4 +22,19 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <TextView
+        android:id="@+id/class_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/class_name"
+        tools:text=" Fecha y precio" />
+
+    <TextView
+        android:id="@+id/class_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/class_price"
+        tools:text="Descripción de la clase" />
+
 </RelativeLayout>

@@ -1,11 +1,13 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.classes
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.class_info_from_notification.view.*
@@ -24,7 +26,6 @@ class MessagesClassesAdapter(private val mListener: ClassesFragment.OnListFragme
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // dummy
         var item = items[position]
         holder.name.text = item.name
         holder.description.text = item.description
@@ -37,12 +38,21 @@ class MessagesClassesAdapter(private val mListener: ClassesFragment.OnListFragme
         val name: TextView = mView.class_name
         val description: TextView = mView.class_description
         val datePrice: TextView = mView.class_price
-        val favButton: ImageButton = mView.favButton
 
-        fun ViewHolder() {
+        init {
+            val favButton: ImageButton = mView.favButton
             favButton.setOnClickListener { v -> addToClasses(v) }
         }
 
-        fun addToClasses(v: View) {}
+        fun addToClasses(v: View) {
+            Log.d("BREAKPOINT", adapterPosition.toString())
+            var mutableItems = items.toMutableList()
+            var item = mutableItems.removeAt(adapterPosition)
+            items = mutableItems.toList()
+            var activity = v.context as HomeActivity
+            activity.classesList.add(item)
+            notifyDataSetChanged()
+        }
+
     }
 }

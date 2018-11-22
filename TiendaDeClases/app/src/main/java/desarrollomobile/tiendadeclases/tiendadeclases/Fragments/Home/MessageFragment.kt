@@ -11,7 +11,7 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesApi
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Class
-import desarrollomobile.tiendadeclases.tiendadeclases.classes.ClassesAdapter
+import desarrollomobile.tiendadeclases.tiendadeclases.classes.MessagesClassesAdapter
 import io.reactivex.disposables.Disposable
 
 
@@ -29,7 +29,7 @@ class MessageFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_classes, container, false)
+        return inflater.inflate(R.layout.fragment_classes_from_notification, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class MessageFragment : Fragment() {
         val homeActivity = this.activity as HomeActivity
         if (view is RecyclerView) {
             with(view) {
-                var classesAdapter = ClassesAdapter(listener)
+                var classesAdapter = MessagesClassesAdapter(listener)
                 layoutManager = LinearLayoutManager(context)
                 adapter = classesAdapter
                 classesAdapter.items = homeActivity.messagesClassesList
@@ -51,7 +51,6 @@ class MessageFragment : Fragment() {
         var disposable: Disposable? = null
     }
 
-    
 
     interface OnListFragmentInteractionListener : ClassesFragment.OnListFragmentInteractionListener {
     }
