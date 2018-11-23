@@ -15,6 +15,7 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasF
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ProfileFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
+import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Class
@@ -23,6 +24,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteractionListener, MessagesFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener {
+
+    lateinit var mPreferencesManager: PreferencesManager
+
     override fun onFragmentInteraction(uri: Uri) {
 
     }
@@ -51,6 +55,8 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        mPreferencesManager = PreferencesManager(this)
+
         var toolbar = findViewById<android.support.v7.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -75,8 +81,7 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
-        var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
-        val firstStart = preference.getString("userName", "")
+        val firstStart = mPreferencesManager.getStringPreference("userName")
 
         if(firstStart != "") {
             menuInflater.inflate(R.menu.profile, menu)
@@ -93,10 +98,7 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
                 startActivity(Intent(this, ProfileActivity::class.java))
             }
             R.id.menu_logout -> {
-                var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
-                val editor = preference.edit()
-                editor.putString("userName", "")
-                editor.apply()
+                mPreferencesManager.setStringPreference("userName", "")
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }

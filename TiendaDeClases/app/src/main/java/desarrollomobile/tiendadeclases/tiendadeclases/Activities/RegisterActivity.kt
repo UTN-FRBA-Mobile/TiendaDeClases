@@ -17,6 +17,7 @@ import android.widget.Toast
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.gson.GsonBuilder
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ProfileFragment
+import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.users.User
 import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApi
@@ -37,11 +38,14 @@ class RegisterActivity: AppCompatActivity() {
     private var mLocationButton: Button? = null
     private var mRegisterButton: Button? = null
     private val PLACE_PICKER_REQUEST = 1
+    private lateinit var mPreferencesManager: PreferencesManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        mPreferencesManager = PreferencesManager(this)
 
         mDisplayDate = findViewById(R.id.user_birthday)
 
@@ -100,10 +104,7 @@ class RegisterActivity: AppCompatActivity() {
                         findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString()))
                 responsePost.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
                     if(it.status == 200) {
-                        var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
-                        val editor = preference.edit()
-                        editor.putString("userName", findViewById<EditText>(R.id.userName_edit).text.toString())
-                        editor.apply()
+                        mPreferencesManager.setStringPreference("userName", findViewById<EditText>(R.id.userName_edit).text.toString())
                         startActivity(Intent(this, HomeActivity::class.java))
                         finish()
                     } else {

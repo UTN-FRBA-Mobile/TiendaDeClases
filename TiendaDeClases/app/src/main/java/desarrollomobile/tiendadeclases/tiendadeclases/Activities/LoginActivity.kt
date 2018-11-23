@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.GsonBuilder
+import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.users.User
 import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApi
@@ -24,9 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity: AppCompatActivity() {
 
+    private lateinit var mPreferencesManager: PreferencesManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mPreferencesManager = PreferencesManager(this)
 
         val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY
@@ -52,10 +57,7 @@ class LoginActivity: AppCompatActivity() {
             val response = userApi.loginUser(User(userName.toString(), password.toString(), "", ""))
             response.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{it ->
                 if(it.status == 200) {
-                    var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
-                    val editor = preference.edit()
-                    editor.putString("userName", userName.toString())
-                    editor.apply()
+                    mPreferencesManager.setStringPreference("userName", userName.toString())
                     startActivity(Intent(this, HomeActivity::class.java))
                     finish()
                 } else {

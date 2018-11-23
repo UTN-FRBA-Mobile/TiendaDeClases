@@ -12,9 +12,13 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.LoginFragm
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.SplashFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.Tutorial1Fragment
+import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 
 
 class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionListener, Tutorial1Fragment.OnFragmentInteractionListener, LoginFragment.OnFragmentInteractionListener {
+
+    private lateinit var mPreferencesManager: PreferencesManager
+
     override fun onFragmentInteraction(uri: Uri) {
 
     }
@@ -23,16 +27,14 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         showAnimatedFragment(SplashFragment())
+        mPreferencesManager = PreferencesManager(this)
 
-        var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
-        val firstStart = preference.getBoolean("firstStart", true)
+        val firstStart = mPreferencesManager.getBooleanPreference("firstStart")
 
         Handler().postDelayed(
                 {
                     if(firstStart) {
-                        val editor = preference.edit()
-                        editor.putBoolean("firstStart", false)
-                        editor.apply()
+                        mPreferencesManager.setBooleanPreference("firstStart", false)
                         startActivity(Intent(this, OnBoardingActivity::class.java))
                         finish()
                     } else {
