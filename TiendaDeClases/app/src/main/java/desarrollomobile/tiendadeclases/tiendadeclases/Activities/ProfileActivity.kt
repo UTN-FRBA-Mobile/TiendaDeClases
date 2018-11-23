@@ -19,10 +19,8 @@ import java.util.*
 class ProfileActivity: AppCompatActivity() {
 
     private val TAG = "ProfileFragment"
-    private var listener: ProfileFragment.OnFragmentInteractionListener? = null
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
-    private var mDisplayLocation: TextView? = null
     private var mLocationButton: Button? = null
     private val PLACE_PICKER_REQUEST = 1
 
