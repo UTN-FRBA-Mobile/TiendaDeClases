@@ -2,73 +2,38 @@ package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
-import desarrollomobile.tiendadeclases.tiendadeclases.classes.Class
-import desarrollomobile.tiendadeclases.tiendadeclases.classes.ClassesAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import android.support.v4.view.ViewPager
+import desarrollomobile.tiendadeclases.tiendadeclases.classes.ClassPagerAdapter
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [ClassesFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [ClassesFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class ClassesFragment : Fragment() {
 
-    private var columnCount = 1
-
     private var listener: OnListFragmentInteractionListener? = null
+
+    var viewPager: ViewPager? = null
+    var tabLayout: TabLayout? = null
 
     val api by lazy {
         Api.create()
     }
 
-    var disposable: Disposable? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_classes, container, false)
-    }
+        val view = inflater.inflate(R.layout.classes_tabs, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val homeActivity = this.activity as HomeActivity
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                var classesAdapter = ClassesAdapter(listener)
-                layoutManager = LinearLayoutManager(context)
-                adapter = classesAdapter
-                classesAdapter.items = homeActivity.classesList
-                classesAdapter.notifyDataSetChanged()
-            }
-        }
-    }
+        viewPager = view.findViewById(R.id.viewpager)
+        tabLayout = view.findViewById(R.id.tabs)
 
-    override fun onPause() {
-        super.onPause()
-        disposable?.dispose()
+        viewPager?.adapter = ClassPagerAdapter(childFragmentManager)
+        tabLayout?.setupWithViewPager(viewPager)
+
+        return view
     }
 
     override fun onAttach(context: Context) {

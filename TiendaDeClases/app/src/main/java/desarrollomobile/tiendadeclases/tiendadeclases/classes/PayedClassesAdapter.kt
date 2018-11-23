@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
-import kotlinx.android.synthetic.main.class_info.view.*
+import kotlinx.android.synthetic.main.class_marked.view.*
 
-class ClassesAdapter(private val mListener: ClassesFragment.OnListFragmentInteractionListener?) : RecyclerView.Adapter<ClassesAdapter.ViewHolder>() {
+class PayedClassesAdapter(private val mListener: ClassesFragment.OnListFragmentInteractionListener?) : RecyclerView.Adapter<PayedClassesAdapter.ViewHolder>() {
 
     var items : List<Class> = ArrayList<Class>()
 
     override fun getItemViewType(position: Int): Int {
-        return R.layout.class_main
+        return R.layout.class_payed
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +27,8 @@ class ClassesAdapter(private val mListener: ClassesFragment.OnListFragmentIntera
         var item = items[position]
         holder.name.text = item.name
         holder.description.text = item.description
-        holder.datePrice.text = " " + item.date + " - " + item.price
+        holder.date.text = item.date
+        holder.price.text = item.price
     }
 
     override fun getItemCount(): Int = items.size
@@ -35,6 +36,7 @@ class ClassesAdapter(private val mListener: ClassesFragment.OnListFragmentIntera
     inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
         val name: TextView = mView.className
         val description: TextView = mView.classDescription
-        val datePrice: TextView = mView.classDatePrice
+        val date: TextView = mView.classDate
+        val price: TextView = mView.classPrice
     }
 }
