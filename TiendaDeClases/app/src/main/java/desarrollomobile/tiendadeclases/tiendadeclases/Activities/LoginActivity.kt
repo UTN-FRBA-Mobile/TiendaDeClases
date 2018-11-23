@@ -58,7 +58,10 @@ class LoginActivity: AppCompatActivity() {
             response.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{it ->
                 if(it.status == 200) {
                     mPreferencesManager.setStringPreference("userName", userName.toString())
-                    startActivity(Intent(this, HomeActivity::class.java))
+
+                    val intent = Intent(this, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                     finish()
                 } else {
                     Toast.makeText(this, "Sorry there was an error on your login, change username/password", Toast.LENGTH_LONG).show()
