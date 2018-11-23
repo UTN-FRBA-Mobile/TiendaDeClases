@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionLi
         Handler().postDelayed(
                 {
                     if(firstStart) {
-                        /*val editor = preference.edit()
+                        val editor = preference.edit()
                         editor.putBoolean("firstStart", false)
-                        editor.apply()*/
+                        editor.apply()
                         startActivity(Intent(this, OnBoardingActivity::class.java))
                         finish()
                     } else {
