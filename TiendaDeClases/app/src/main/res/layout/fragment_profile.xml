@@ -9,10 +9,11 @@
 
     <ImageView
         android:id="@+id/profile_pic_view"
-        android:layout_width="129dp"
-        android:layout_height="69dp"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        tools:src="@drawable/profile_pic" />
+        android:src="@drawable/profile_pic" />
 
     <TextView
         android:id="@+id/user_username"
