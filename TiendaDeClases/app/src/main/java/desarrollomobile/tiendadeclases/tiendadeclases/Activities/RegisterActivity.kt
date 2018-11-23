@@ -2,6 +2,7 @@ package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -99,7 +100,12 @@ class RegisterActivity: AppCompatActivity() {
                         findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString()))
                 responsePost.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
                     if(it.status == 200) {
+                        var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
+                        val editor = preference.edit()
+                        editor.putString("userName", findViewById<EditText>(R.id.userName_edit).text.toString())
+                        editor.apply()
                         startActivity(Intent(this, HomeActivity::class.java))
+                        finish()
                     } else {
                         Toast.makeText(this, "Sorry username already exists, please choose another", Toast.LENGTH_LONG).show()
                     }

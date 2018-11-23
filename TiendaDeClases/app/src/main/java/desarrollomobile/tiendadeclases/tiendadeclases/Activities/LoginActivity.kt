@@ -1,5 +1,6 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -51,7 +52,12 @@ class LoginActivity: AppCompatActivity() {
             val response = userApi.loginUser(User(userName.toString(), password.toString(), "", ""))
             response.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{it ->
                 if(it.status == 200) {
+                    var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
+                    val editor = preference.edit()
+                    editor.putString("userName", userName.toString())
+                    editor.apply()
                     startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                 } else {
                     Toast.makeText(this, "Sorry there was an error on your login, change username/password", Toast.LENGTH_LONG).show()
                 }

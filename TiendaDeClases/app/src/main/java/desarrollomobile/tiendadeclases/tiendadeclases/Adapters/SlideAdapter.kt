@@ -15,6 +15,9 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Activities.LoginActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.ProfileActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.RegisterActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import android.app.Activity
+
+
 
 class SlideAdapter: PagerAdapter {
 

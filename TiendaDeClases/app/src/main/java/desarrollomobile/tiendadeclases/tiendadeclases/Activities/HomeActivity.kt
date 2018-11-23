@@ -1,8 +1,10 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -72,8 +74,16 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var mMenuInflater = menuInflater
-        mMenuInflater.inflate(R.menu.profile, menu)
+
+        var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        val firstStart = preference.getString("userName", "")
+
+        if(firstStart != "") {
+            menuInflater.inflate(R.menu.profile, menu)
+        } else {
+            menuInflater.inflate(R.menu.not_signed, menu)
+        }
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -81,6 +91,20 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
         when(item?.itemId) {
             R.id.menu_profile -> {
                 startActivity(Intent(this, ProfileActivity::class.java))
+            }
+            R.id.menu_logout -> {
+                var preference = getSharedPreferences("preferences", Context.MODE_PRIVATE)
+                val editor = preference.edit()
+                editor.putString("userName", "")
+                editor.apply()
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            }
+            R.id.menu_signin -> {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+            R.id.menu_signup -> {
+                startActivity(Intent(this, RegisterActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

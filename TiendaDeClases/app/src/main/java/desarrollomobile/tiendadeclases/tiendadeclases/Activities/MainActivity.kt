@@ -34,8 +34,10 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionLi
                         editor.putBoolean("firstStart", false)
                         editor.apply()*/
                         startActivity(Intent(this, OnBoardingActivity::class.java))
+                        finish()
                     } else {
                         startActivity(Intent(this, HomeActivity::class.java))
+                        finish()
 
                     }
                 }, 1500)
