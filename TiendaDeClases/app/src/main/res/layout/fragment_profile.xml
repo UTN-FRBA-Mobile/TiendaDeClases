@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Home.ProfileFragment">
+    tools:context=".Fragments.Home.ProfileFragment"
+    android:id="@+id/profile_frame">
 
 
     <ImageView
@@ -132,13 +133,10 @@
             android:id="@+id/change_password"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/save_changes"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginStart="68dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="41dp"
-            android:text="Cambiar Contraseña" />
+            android:text="@string/change_password" />
 
     </LinearLayout>
 

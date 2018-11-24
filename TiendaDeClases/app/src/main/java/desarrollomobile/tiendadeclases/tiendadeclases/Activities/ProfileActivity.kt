@@ -10,11 +10,15 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.google.gson.GsonBuilder
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 class ProfileActivity: AppCompatActivity() {
@@ -22,15 +26,27 @@ class ProfileActivity: AppCompatActivity() {
     private val TAG = "ProfileFragment"
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
-    private var mLocationButton: Button? = null
+    private lateinit var mLocationButton: Button
     private val PLACE_PICKER_REQUEST = 1
     private val PICK_IMAGE = 100
     private lateinit var mPictureProfile: ImageView
     private lateinit var imageUri: Uri
+    private lateinit var mChangePasswordButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
+        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        }
+        val client : OkHttpClient = OkHttpClient.Builder().apply {
+            this.addInterceptor(interceptor)
+        }.build()
+        val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
+
         setContentView(R.layout.fragment_profile)
 
         mDisplayDate = findViewById(R.id.user_birthday)
@@ -59,8 +75,7 @@ class ProfileActivity: AppCompatActivity() {
         }
 
         mLocationButton = findViewById(R.id.change_location)
-
-        mLocationButton?.setOnClickListener(View.OnClickListener {
+        mLocationButton.setOnClickListener(View.OnClickListener {
             val builder = PlacePicker.IntentBuilder()
 
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
@@ -70,6 +85,12 @@ class ProfileActivity: AppCompatActivity() {
         mPictureProfile = findViewById(R.id.profile_pic_view)
         mPictureProfile.setOnClickListener(View.OnClickListener {
                 openGallery()
+        })
+
+        mChangePasswordButton = findViewById(R.id.change_password)
+        mChangePasswordButton.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, UpdatePasswordActivity::class.java)
+            startActivity(intent)
         })
     }
 

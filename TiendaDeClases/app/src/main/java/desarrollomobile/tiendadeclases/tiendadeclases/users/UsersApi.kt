@@ -8,10 +8,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface UsersApi {
     @GET("usuario/{userName}")
@@ -22,4 +19,7 @@ interface UsersApi {
 
     @POST("login")
     fun loginUser(@Body user: User): Observable<UserResponse>
+
+    @PUT("updatePassword")
+    fun updatePassword(@Body passwordReq: PasswordRequest): Observable<UserResponse>
 }

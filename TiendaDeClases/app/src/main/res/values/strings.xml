@@ -29,4 +29,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_signin">Ingresar</string>
     <string name="menu_sinup">Registrarse</string>
+    <string name="new_password">Nueva Contraseña</string>
+    <string name="old_password">Vieja Contraseña</string>
+    <string name="repeat_new_password">Repetir nueva contraseña</string>
+    <string name="change_password">Cambiar Contraseña</string>
+    <string name="update_password_button">Actualizar Contraseña</string>
 </resources>
