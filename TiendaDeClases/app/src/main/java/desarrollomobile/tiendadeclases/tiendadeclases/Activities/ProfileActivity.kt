@@ -5,15 +5,16 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.gms.location.places.ui.PlacePicker
-import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ProfileFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
-import kotlinx.android.synthetic.main.fragment_profile.view.*
 import java.util.*
 
 class ProfileActivity: AppCompatActivity() {
@@ -23,6 +24,9 @@ class ProfileActivity: AppCompatActivity() {
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
     private var mLocationButton: Button? = null
     private val PLACE_PICKER_REQUEST = 1
+    private val PICK_IMAGE = 100
+    private lateinit var mPictureProfile: ImageView
+    private lateinit var imageUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -62,16 +66,28 @@ class ProfileActivity: AppCompatActivity() {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
 
         })
+
+        mPictureProfile = findViewById(R.id.profile_pic_view)
+        mPictureProfile.setOnClickListener(View.OnClickListener {
+                openGallery()
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == Activity.RESULT_OK) {
-                val place = PlacePicker.getPlace(this, data)
-                val locationLabel =  findViewById<TextView>(R.id.user_location)
+        if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
+            val place = PlacePicker.getPlace(this, data)
+            val locationLabel =  findViewById<TextView>(R.id.user_location)
 
-                locationLabel.setText(place.latLng.toString())
-            }
+            locationLabel.setText(place.latLng.toString())
         }
+        if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            imageUri = data!!.data
+            mPictureProfile.setImageURI(imageUri)
+        }
+    }
+
+    fun openGallery() {
+        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        startActivityForResult(gallery, PICK_IMAGE)
     }
 }
