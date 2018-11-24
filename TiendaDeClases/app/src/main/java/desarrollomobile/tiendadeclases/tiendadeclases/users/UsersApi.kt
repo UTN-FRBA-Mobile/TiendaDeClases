@@ -17,6 +17,9 @@ interface UsersApi {
     @POST("usuario")
     fun addUser(@Body user: User): Observable<UserResponse>
 
+    @PUT("usuario")
+    fun modifyUser(@Body user: User): Observable<UserResponse>
+
     @POST("login")
     fun loginUser(@Body user: User): Observable<UserResponse>
 

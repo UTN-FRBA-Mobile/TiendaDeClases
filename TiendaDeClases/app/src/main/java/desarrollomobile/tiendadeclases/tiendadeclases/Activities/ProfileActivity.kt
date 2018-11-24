@@ -13,7 +13,12 @@ import android.view.View
 import android.widget.*
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.gson.GsonBuilder
+import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import desarrollomobile.tiendadeclases.tiendadeclases.users.User
+import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApi
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,6 +29,7 @@ import java.util.*
 class ProfileActivity: AppCompatActivity() {
 
     private val TAG = "ProfileFragment"
+    private lateinit var mPreferencesManager: PreferencesManager
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
     private lateinit var mLocationButton: Button
@@ -32,22 +38,14 @@ class ProfileActivity: AppCompatActivity() {
     private lateinit var mPictureProfile: ImageView
     private lateinit var imageUri: Uri
     private lateinit var mChangePasswordButton: Button
+    private lateinit var mSaveChangesButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
-        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            this.level = HttpLoggingInterceptor.Level.BODY
-        }
-        val client : OkHttpClient = OkHttpClient.Builder().apply {
-            this.addInterceptor(interceptor)
-        }.build()
-        val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
-
         setContentView(R.layout.fragment_profile)
+        mPreferencesManager = PreferencesManager(this)
 
         mDisplayDate = findViewById(R.id.user_birthday)
 
@@ -92,6 +90,35 @@ class ProfileActivity: AppCompatActivity() {
             val intent = Intent(this, UpdatePasswordActivity::class.java)
             startActivity(intent)
         })
+
+        mSaveChangesButton = findViewById(R.id.save_changes)
+        mSaveChangesButton.setOnClickListener(View.OnClickListener {
+            val userName = mPreferencesManager.getStringPreference("userName")
+            val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+                this.level = HttpLoggingInterceptor.Level.BODY
+            }
+            val client : OkHttpClient = OkHttpClient.Builder().apply {
+                this.addInterceptor(interceptor)
+            }.build()
+            val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
+
+            val userApi = retrofit.create(UsersApi::class.java)
+
+            val userModify = User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString())
+
+            val responseGet = userApi.modifyUser(userModify)
+
+            responseGet.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
+
+                Toast.makeText(this, "User succesfuly modified", Toast.LENGTH_LONG)
+
+
+            }
+        })
+
+        fillProfileData()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -111,4 +138,32 @@ class ProfileActivity: AppCompatActivity() {
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         startActivityForResult(gallery, PICK_IMAGE)
     }
+
+    fun fillProfileData() {
+
+        val userName = mPreferencesManager.getStringPreference("userName")
+        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        }
+        val client : OkHttpClient = OkHttpClient.Builder().apply {
+            this.addInterceptor(interceptor)
+        }.build()
+        val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
+
+        val userApi = retrofit.create(UsersApi::class.java)
+
+        val responseGet = userApi.getUser(userName)
+        responseGet.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
+
+            findViewById<TextView>(R.id.user_username).text = userName
+            findViewById<TextView>(R.id.user_first_name).text = it.firstName
+            findViewById<TextView>(R.id.user_last_name).text = it.lastName
+
+
+        }
+    }
+
+
 }
