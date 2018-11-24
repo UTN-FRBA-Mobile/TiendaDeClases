@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -27,6 +28,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 class RegisterActivity: AppCompatActivity() {
@@ -41,6 +43,7 @@ class RegisterActivity: AppCompatActivity() {
     private lateinit var mPreferencesManager: PreferencesManager
     private lateinit var mPictureProfile: ImageView
     private lateinit var imageUri: Uri
+    private var bitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -101,7 +104,8 @@ class RegisterActivity: AppCompatActivity() {
                 val userApi = retrofit.create(UsersApi::class.java)
 
                 val responsePost = userApi.addUser(User(findViewById<EditText>(R.id.userName_edit).text.toString(), findViewById<EditText>(R.id.password_edit).text.toString(),
-                        findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(),null))
+                        findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(),null,
+                        imageToString()))
                 responsePost.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
                     if(it.status == 200) {
                         mPreferencesManager.setStringPreference("userName", findViewById<EditText>(R.id.userName_edit).text.toString())
@@ -133,6 +137,7 @@ class RegisterActivity: AppCompatActivity() {
         if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data
             mPictureProfile.setImageURI(imageUri)
+            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
         }
     }
 
@@ -140,6 +145,15 @@ class RegisterActivity: AppCompatActivity() {
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         startActivityForResult(gallery, PICK_IMAGE)
     }
+
+    fun imageToString(): ByteArray {
+
+        val byteArray = ByteArrayOutputStream()
+        bitmap!!.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
+
+        return byteArray.toByteArray()
+    }
+
 
 
 }

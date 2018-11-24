@@ -55,7 +55,7 @@ class LoginActivity: AppCompatActivity() {
             val userName = findViewById<EditText>(R.id.text_usuario).text
             val password = findViewById<EditText>(R.id.text_contraseña).text
 
-            val response = userApi.loginUser(User(userName.toString(), password.toString(), "", "",null))
+            val response = userApi.loginUser(User(userName.toString(), password.toString(), "", "",null, null))
             response.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{it ->
                 if(it.status == 200) {
                     mPreferencesManager.setStringPreference("userName", userName.toString())
