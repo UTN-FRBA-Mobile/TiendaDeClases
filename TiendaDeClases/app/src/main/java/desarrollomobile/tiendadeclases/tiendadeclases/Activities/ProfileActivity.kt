@@ -3,6 +3,8 @@ package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -24,7 +26,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.ByteArrayOutputStream
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ProfileActivity: AppCompatActivity() {
 
@@ -37,6 +41,7 @@ class ProfileActivity: AppCompatActivity() {
     private val PICK_IMAGE = 100
     private lateinit var mPictureProfile: ImageView
     private lateinit var imageUri: Uri
+    private var bitmap: Bitmap? = null
     private lateinit var mChangePasswordButton: Button
     private lateinit var mSaveChangesButton: Button
 
@@ -99,20 +104,20 @@ class ProfileActivity: AppCompatActivity() {
             }
             val client : OkHttpClient = OkHttpClient.Builder().apply {
                 this.addInterceptor(interceptor)
-            }.build()
+            }.connectTimeout(60, TimeUnit.SECONDS).build()
             val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
 
             val userApi = retrofit.create(UsersApi::class.java)
 
-            val userModify = User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString())
+            val userModify = User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString(), imageToString())
 
             val responseGet = userApi.modifyUser(userModify)
 
             responseGet.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
 
-                Toast.makeText(this, "User succesfuly modified", Toast.LENGTH_LONG)
+                Toast.makeText(this, "User succesfuly modified", Toast.LENGTH_LONG).show()
 
 
             }
@@ -131,6 +136,7 @@ class ProfileActivity: AppCompatActivity() {
         if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data
             mPictureProfile.setImageURI(imageUri)
+            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
         }
     }
 
@@ -161,8 +167,20 @@ class ProfileActivity: AppCompatActivity() {
             findViewById<TextView>(R.id.user_first_name).text = it.firstName
             findViewById<TextView>(R.id.user_last_name).text = it.lastName
 
+            if(it.profilePicture != null) {
+                val bmp = BitmapFactory.decodeByteArray(it.profilePicture,0, it.profilePicture!!.size);
+                findViewById<ImageView>(R.id.profile_pic_view).setImageBitmap(bmp)
+            }
 
         }
+    }
+
+    fun imageToString(): ByteArray {
+
+        val byteArray = ByteArrayOutputStream()
+        bitmap!!.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
+
+        return byteArray.toByteArray()
     }
 
 
