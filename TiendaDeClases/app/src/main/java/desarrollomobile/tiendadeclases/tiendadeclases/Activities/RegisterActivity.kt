@@ -46,7 +46,7 @@ class RegisterActivity: AppCompatActivity() {
     private lateinit var mPictureProfile: ImageView
     private lateinit var imageUri: Uri
     private var bitmap: Bitmap? = null
-    private lateinit var mPlace: Place
+    private var mPlace: Place? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -105,10 +105,14 @@ class RegisterActivity: AppCompatActivity() {
             if (findViewById<EditText>(R.id.userName_edit).text.toString() != "" &&
                     findViewById<EditText>(R.id.password_edit).text.toString() != "") {
                 val userApi = retrofit.create(UsersApi::class.java)
+                var position: Position? = null
+                if (mPlace != null) {
+                    position = Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude)
+                }
 
                 val responsePost = userApi.addUser(User(findViewById<EditText>(R.id.userName_edit).text.toString(), findViewById<EditText>(R.id.password_edit).text.toString(),
-                        findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(), Position(mPlace.latLng.latitude, mPlace.latLng.longitude),
-                        imageToString()))
+                        findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(), mDisplayDate!!.text.toString(),
+                        position, imageToString()))
                 responsePost.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
                     if(it.status == 200) {
                         mPreferencesManager.setStringPreference("userName", findViewById<EditText>(R.id.userName_edit).text.toString())
@@ -135,7 +139,7 @@ class RegisterActivity: AppCompatActivity() {
             mPlace = PlacePicker.getPlace(this, data)
             val locationLabel =  findViewById<TextView>(R.id.user_location)
 
-            locationLabel.text = mPlace.latLng.toString()
+            locationLabel.text = mPlace!!.latLng.toString()
         }
         if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data

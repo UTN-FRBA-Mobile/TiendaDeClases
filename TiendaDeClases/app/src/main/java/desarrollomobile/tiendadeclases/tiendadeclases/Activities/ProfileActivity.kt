@@ -47,7 +47,7 @@ class ProfileActivity: AppCompatActivity() {
     private var bitmap: Bitmap? = null
     private lateinit var mChangePasswordButton: Button
     private lateinit var mSaveChangesButton: Button
-    private lateinit var mPlace: Place
+    private var mPlace: Place? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -115,8 +115,13 @@ class ProfileActivity: AppCompatActivity() {
 
             val userApi = retrofit.create(UsersApi::class.java)
 
+            var position: Position? = null
+            if (mPlace != null) {
+                position = Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude)
+            }
+
             val userModify = User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString()
-                    , Position(mPlace.latLng.latitude, mPlace.latLng.longitude) ,imageToString())
+                    , mDisplayDate!!.text.toString(), position, imageToString())
 
             val responseGet = userApi.modifyUser(userModify)
 
@@ -135,7 +140,7 @@ class ProfileActivity: AppCompatActivity() {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
             mPlace = PlacePicker.getPlace(this, data)
             val locationLabel =  findViewById<TextView>(R.id.user_location)
-            locationLabel.text = mPlace.latLng.toString()
+            locationLabel.text = mPlace!!.latLng.toString()
         }
         if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data
@@ -170,6 +175,7 @@ class ProfileActivity: AppCompatActivity() {
             findViewById<TextView>(R.id.user_username).text = userName
             findViewById<TextView>(R.id.user_first_name).text = it.firstName
             findViewById<TextView>(R.id.user_last_name).text = it.lastName
+            mDisplayDate!!.text = it.birthday
 
             if(it.position != null) {
                 val position = LatLng(it.position!!.latitude, it.position!!.longitude)
