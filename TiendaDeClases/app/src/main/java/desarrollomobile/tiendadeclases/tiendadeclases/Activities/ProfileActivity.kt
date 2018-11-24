@@ -13,10 +13,13 @@ import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.*
+import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.GsonBuilder
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import desarrollomobile.tiendadeclases.tiendadeclases.users.Position
 import desarrollomobile.tiendadeclases.tiendadeclases.users.User
 import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApi
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -44,6 +47,7 @@ class ProfileActivity: AppCompatActivity() {
     private var bitmap: Bitmap? = null
     private lateinit var mChangePasswordButton: Button
     private lateinit var mSaveChangesButton: Button
+    private lateinit var mPlace: Place
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -111,7 +115,8 @@ class ProfileActivity: AppCompatActivity() {
 
             val userApi = retrofit.create(UsersApi::class.java)
 
-            val userModify = User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString(), imageToString())
+            val userModify = User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString()
+                    , Position(mPlace.latLng.latitude, mPlace.latLng.longitude) ,imageToString())
 
             val responseGet = userApi.modifyUser(userModify)
 
@@ -128,10 +133,9 @@ class ProfileActivity: AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
-            val place = PlacePicker.getPlace(this, data)
+            mPlace = PlacePicker.getPlace(this, data)
             val locationLabel =  findViewById<TextView>(R.id.user_location)
-
-            locationLabel.setText(place.latLng.toString())
+            locationLabel.text = mPlace.latLng.toString()
         }
         if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data
@@ -167,6 +171,11 @@ class ProfileActivity: AppCompatActivity() {
             findViewById<TextView>(R.id.user_first_name).text = it.firstName
             findViewById<TextView>(R.id.user_last_name).text = it.lastName
 
+            if(it.position != null) {
+                val position = LatLng(it.position!!.latitude, it.position!!.longitude)
+                findViewById<TextView>(R.id.user_location).text = position.toString()
+            }
+
             if(it.profilePicture != null) {
                 val bmp = BitmapFactory.decodeByteArray(it.profilePicture,0, it.profilePicture!!.size);
                 findViewById<ImageView>(R.id.profile_pic_view).setImageBitmap(bmp)
@@ -175,12 +184,14 @@ class ProfileActivity: AppCompatActivity() {
         }
     }
 
-    fun imageToString(): ByteArray {
+    fun imageToString(): ByteArray? {
 
         val byteArray = ByteArrayOutputStream()
-        bitmap!!.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
-
-        return byteArray.toByteArray()
+        if(bitmap != null) {
+            bitmap!!.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
+            return byteArray.toByteArray()
+        }
+        return null
     }
 
 

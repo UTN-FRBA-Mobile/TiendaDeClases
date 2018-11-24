@@ -14,11 +14,13 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.gson.GsonBuilder
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ProfileFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import desarrollomobile.tiendadeclases.tiendadeclases.users.Position
 import desarrollomobile.tiendadeclases.tiendadeclases.users.User
 import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApi
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -44,6 +46,7 @@ class RegisterActivity: AppCompatActivity() {
     private lateinit var mPictureProfile: ImageView
     private lateinit var imageUri: Uri
     private var bitmap: Bitmap? = null
+    private lateinit var mPlace: Place
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -104,7 +107,7 @@ class RegisterActivity: AppCompatActivity() {
                 val userApi = retrofit.create(UsersApi::class.java)
 
                 val responsePost = userApi.addUser(User(findViewById<EditText>(R.id.userName_edit).text.toString(), findViewById<EditText>(R.id.password_edit).text.toString(),
-                        findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(),null,
+                        findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(), Position(mPlace.latLng.latitude, mPlace.latLng.longitude),
                         imageToString()))
                 responsePost.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
                     if(it.status == 200) {
@@ -129,10 +132,10 @@ class RegisterActivity: AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
-            val place = PlacePicker.getPlace(this, data)
+            mPlace = PlacePicker.getPlace(this, data)
             val locationLabel =  findViewById<TextView>(R.id.user_location)
 
-            locationLabel.setText(place.latLng.toString())
+            locationLabel.text = mPlace.latLng.toString()
         }
         if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data
@@ -146,12 +149,14 @@ class RegisterActivity: AppCompatActivity() {
         startActivityForResult(gallery, PICK_IMAGE)
     }
 
-    fun imageToString(): ByteArray {
+    fun imageToString(): ByteArray? {
 
         val byteArray = ByteArrayOutputStream()
-        bitmap!!.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
-
-        return byteArray.toByteArray()
+        if(bitmap != null) {
+            bitmap!!.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
+            return byteArray.toByteArray()
+        }
+        return null
     }
 
 
