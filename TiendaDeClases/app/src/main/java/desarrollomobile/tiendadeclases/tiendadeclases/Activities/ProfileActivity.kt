@@ -38,7 +38,7 @@ class ProfileActivity: UserModifyActivity() {
     private val PICK_IMAGE = 100
 
     private lateinit var mPictureProfile: ImageView
-    private lateinit var imageUri: Uri
+    private var imageUri: Uri? = null
     private var bitmap: Bitmap? = null
     private var mPlace: Place? = null
 
@@ -62,14 +62,13 @@ class ProfileActivity: UserModifyActivity() {
 
         mLocationButton = findViewById(R.id.change_location)
         mLocationButton.setOnClickListener{
-            val builder = PlacePicker.IntentBuilder()
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
-
+            startLocationActivity(PLACE_PICKER_REQUEST)
         }
+
 
         mPictureProfile = findViewById(R.id.profile_pic_view)
         mPictureProfile.setOnClickListener{
-                openGallery()
+            openGallery(PICK_IMAGE)
         }
 
         mChangePasswordButton = findViewById(R.id.change_password)
@@ -81,16 +80,7 @@ class ProfileActivity: UserModifyActivity() {
         mSaveChangesButton = findViewById(R.id.save_changes)
         mSaveChangesButton.setOnClickListener{
 
-            var position: Position? = null
-            if (mPlace != null) {
-                position = Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude)
-            }
-
-            val userName = mPreferencesManager.getStringPreference("userName")
-            val userModify = User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString()
-                    , mDisplayDate!!.text.toString(), position, imageToString())
-
-            val responseGet = UsersApiClient.getRetrofitClient().modifyUser(userModify)
+            val responseGet = UsersApiClient.getRetrofitClient().modifyUser(getUserModified())
 
             responseGet.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{
                 Toast.makeText(this, "User succesfuly modified", Toast.LENGTH_LONG).show()
@@ -113,12 +103,7 @@ class ProfileActivity: UserModifyActivity() {
         }
     }
 
-    fun openGallery() {
-        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(gallery, PICK_IMAGE)
-    }
-
-    fun fillProfileData() {
+    private fun fillProfileData() {
 
         val userName = mPreferencesManager.getStringPreference("userName")
         val responseGet = UsersApiClient.getRetrofitClient().getUser(userName)
@@ -142,14 +127,10 @@ class ProfileActivity: UserModifyActivity() {
         }
     }
 
-    fun imageToString(): ByteArray? {
-
-        val byteArray = ByteArrayOutputStream()
-        if(bitmap != null) {
-            bitmap!!.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
-            return byteArray.toByteArray()
-        }
-        return null
+    private fun getUserModified(): User {
+        val userName = mPreferencesManager.getStringPreference("userName")
+        return User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString()
+                , mDisplayDate!!.text.toString(), Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude), imageToString(bitmap))
     }
 
 

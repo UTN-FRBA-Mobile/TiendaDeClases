@@ -34,7 +34,7 @@ class RegisterActivity: UserModifyActivity() {
     private val PLACE_PICKER_REQUEST = 1
     private lateinit var mPreferencesManager: PreferencesManager
     private lateinit var mPictureProfile: ImageView
-    private lateinit var imageUri: Uri
+    private var imageUri: Uri? = null
     private var bitmap: Bitmap? = null
     private var mPlace: Place? = null
 
@@ -53,33 +53,25 @@ class RegisterActivity: UserModifyActivity() {
             dateModelate(year, month, day, mDisplayDate)
         }
 
-        mLocationButton = findViewById(R.id.change_location)
+        mLocationButton = findViewById(R.id.add_location)
         mLocationButton.setOnClickListener{
-            val builder = PlacePicker.IntentBuilder()
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
+            startLocationActivity(PLACE_PICKER_REQUEST)
         }
 
         mPictureProfile = findViewById(R.id.profile_pic_view)
         mPictureProfile.setOnClickListener{
-            openGallery()
+            openGallery(PICK_IMAGE)
         }
 
         mRegisterButton = findViewById(R.id.register_button)
 
         mRegisterButton?.setOnClickListener{
-            if (findViewById<EditText>(R.id.userName_edit).text.toString() != "" &&
-                    findViewById<EditText>(R.id.password_edit).text.toString() != "") {
+            if (obligatoryFieldsNotNull()) {
                 val userApi = UsersApiClient.getRetrofitClient()
-                var position: Position? = null
-                if (mPlace != null) {
-                    position = Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude)
-                }
 
-                val responsePost = userApi.addUser(User(findViewById<EditText>(R.id.userName_edit).text.toString(), findViewById<EditText>(R.id.password_edit).text.toString(),
-                        findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(), mDisplayDate!!.text.toString(),
-                        position, imageToString()))
-                responsePost.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
-                    if(it.status == 200) {
+                val responsePost = userApi.addUser(getUserRegister())
+                responsePost.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ response ->
+                    if(response.status == 200) {
                         mPreferencesManager.setStringPreference("userName", findViewById<EditText>(R.id.userName_edit).text.toString())
                         val intent = Intent(this, HomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -89,12 +81,9 @@ class RegisterActivity: UserModifyActivity() {
                         Toast.makeText(this, "Sorry username already exists, please choose another", Toast.LENGTH_LONG).show()
                     }
                 }
+            } else {
+                Toast.makeText(this, "Please complete obligatory fields username, password and location", Toast.LENGTH_LONG).show()
             }
-        }
-
-        mPictureProfile = findViewById(R.id.profile_pic_view)
-        mPictureProfile.setOnClickListener{
-            openGallery()
         }
 
     }
@@ -113,21 +102,18 @@ class RegisterActivity: UserModifyActivity() {
         }
     }
 
-    fun openGallery() {
-        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(gallery, PICK_IMAGE)
+    private fun obligatoryFieldsNotNull(): Boolean {
+
+        return findViewById<EditText>(R.id.userName_edit).text.toString() != "" &&
+                findViewById<EditText>(R.id.password_edit).text.toString() != "" &&
+                mPlace != null
     }
 
-    fun imageToString(): ByteArray? {
+    private fun getUserRegister(): User {
 
-        val byteArray = ByteArrayOutputStream()
-        if(bitmap != null) {
-            bitmap!!.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
-            return byteArray.toByteArray()
-        }
-        return null
+        return User(findViewById<EditText>(R.id.userName_edit).text.toString(), findViewById<EditText>(R.id.password_edit).text.toString(),
+                findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(), mDisplayDate!!.text.toString(),
+                Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude), imageToString(bitmap))
     }
-
-
 
 }

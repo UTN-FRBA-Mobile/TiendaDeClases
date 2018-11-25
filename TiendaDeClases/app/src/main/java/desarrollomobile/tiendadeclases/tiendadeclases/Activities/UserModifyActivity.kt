@@ -1,12 +1,19 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
 import android.R
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
+import com.google.android.gms.location.places.Place
+import com.google.android.gms.location.places.ui.PlacePicker
 import org.w3c.dom.Text
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 abstract class UserModifyActivity: AppCompatActivity() {
@@ -33,6 +40,27 @@ abstract class UserModifyActivity: AppCompatActivity() {
 
         val date = month.toString() + "/" + day + "/" + year
         displayDate?.text = date
+    }
+
+    fun startLocationActivity(request: Int) {
+        val builder = PlacePicker.IntentBuilder()
+        startActivityForResult(builder.build(this), request)
+    }
+
+    fun openGallery(image: Int) {
+        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        startActivityForResult(gallery, image)
+    }
+
+
+    fun imageToString(bitmap: Bitmap?): ByteArray? {
+
+        val byteArray = ByteArrayOutputStream()
+        if(bitmap != null) {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
+            return byteArray.toByteArray()
+        }
+        return null
     }
 
 
