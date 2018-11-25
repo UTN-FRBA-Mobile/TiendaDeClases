@@ -42,7 +42,8 @@ class UpdatePasswordActivity: AppCompatActivity() {
     }
 
     fun passwordChecks(): Boolean {
-        return findViewById<EditText>(R.id.newPassword_edit).text.toString() == findViewById<EditText>(R.id.repeatPassword_edit).text.toString()
+        return findViewById<EditText>(R.id.newPassword_edit).text.toString() == findViewById<EditText>(R.id.repeatPassword_edit).text.toString() &&
+                findViewById<EditText>(R.id.newPassword_edit).text.toString() != ""
     }
 
 }
