@@ -5,6 +5,7 @@ public class Class {
     public String date;
     public String description;
     public String price;
+    public int status;
     public String getName() {
         return name;
     }
@@ -17,4 +18,5 @@ public class Class {
     public String getPrice() {
         return price;
     }
+    public int getStatus() { return status; }
 }

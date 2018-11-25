@@ -3,6 +3,7 @@
 
     <string name="title">Tienda De Clases</string>
 
+    <!-- Tutorial -->
     <string name="tutorial1_text">Bienvenido a la aplicación oficial de TiendaDeClases!</string>
     <string name="tutorial1_text2">Seguí estos pasos para empezar a tomar clases:</string>
     <string name="tutorial2_text">Creá tu cuenta</string>
@@ -12,9 +13,12 @@
     <string name="tutorial5_button">Registrar</string>
     <string name="tutorial6_button">Continuar como invitado</string>
 
+    <!-- Login -->
     <string name="login_usuario">Nombre de usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_ingresar">Ingresar</string>
+
+    <!-- Pantalla principal -->
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_categories">Categorías</string>
     <string name="title_classes">Mis clases</string>
@@ -22,6 +26,12 @@
     <string name="menu_logout">Salir</string>
     <string name="title_messages">Mensajes</string>
 
+    <!-- Classes -->
+    <string name="classes_datePriceSeparator">" - "</string>
+    <string name="classes_payButton">"Pagar"</string>
+    <string name="classes_scheduleButton">"Agendar"</string>
+
+    <!-- Perfil -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_signin">Ingresar</string>
     <string name="menu_sinup">Registrarse</string>

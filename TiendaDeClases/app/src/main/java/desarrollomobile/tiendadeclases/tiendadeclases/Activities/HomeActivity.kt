@@ -1,7 +1,6 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +11,8 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasF
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
+import desarrollomobile.tiendadeclases.tiendadeclases.Messages.Message
+import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesApi
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Class
@@ -19,15 +20,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteractionListener, MessagesFragment.OnFragmentInteractionListener {
+class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteractionListener, MessagesFragment.OnListFragmentInteractionListener {
 
     lateinit var mPreferencesManager: PreferencesManager
 
-    override fun onFragmentInteraction(uri: Uri) {
-
-    }
-
     var classesList: MutableList<Class> = ArrayList<Class>()
+    var messagesList: MutableList<Message> = ArrayList<Message>()
+    var messagesClassesList: MutableList<Class> = ArrayList<Class>()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -68,9 +67,20 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
                         { result ->
                             classesList = result.classes
                         },
-                        {
-                            error ->
-                            Toast.makeText(this, "No se encontraron clases! " + error, Toast.LENGTH_LONG).show() }
+                        { error ->
+                            Toast.makeText(this, "No se encontraron clases! " + error, Toast.LENGTH_LONG).show()
+                        }
+                )
+        disposable = MessagesApi.create().getMessages()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result ->
+                            messagesList = result.messages;
+                        },
+                        { error ->
+                            Toast.makeText(this, "No se encontraron mensajes! " + error, Toast.LENGTH_LONG).show()
+                        }
                 )
 
     }
