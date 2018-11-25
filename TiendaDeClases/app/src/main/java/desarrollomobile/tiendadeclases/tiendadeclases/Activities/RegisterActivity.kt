@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.*
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.google.android.gms.maps.model.LatLng
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.users.Position
@@ -36,7 +37,7 @@ class RegisterActivity: UserModifyActivity() {
     private lateinit var mPictureProfile: ImageView
     private var imageUri: Uri? = null
     private var bitmap: Bitmap? = null
-    private var mPlace: Place? = null
+    private var mPlace: LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -90,10 +91,10 @@ class RegisterActivity: UserModifyActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
-            mPlace = PlacePicker.getPlace(this, data)
+            mPlace = PlacePicker.getPlace(this, data).latLng
             val locationLabel =  findViewById<TextView>(R.id.user_location)
 
-            locationLabel.text = mPlace!!.latLng.toString()
+            locationLabel.text = mPlace.toString()
         }
         if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data
@@ -113,7 +114,7 @@ class RegisterActivity: UserModifyActivity() {
 
         return User(findViewById<EditText>(R.id.userName_edit).text.toString(), findViewById<EditText>(R.id.password_edit).text.toString(),
                 findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(), mDisplayDate!!.text.toString(),
-                Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude), imageToString(bitmap))
+                Position(mPlace!!.latitude, mPlace!!.longitude), imageToString(bitmap))
     }
 
 }

@@ -40,7 +40,7 @@ class ProfileActivity: UserModifyActivity() {
     private lateinit var mPictureProfile: ImageView
     private var imageUri: Uri? = null
     private var bitmap: Bitmap? = null
-    private var mPlace: Place? = null
+    private lateinit var mPlace: LatLng
 
     private lateinit var mLocationButton: Button
     private lateinit var mChangePasswordButton: Button
@@ -92,9 +92,9 @@ class ProfileActivity: UserModifyActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
-            mPlace = PlacePicker.getPlace(this, data)
+            mPlace = PlacePicker.getPlace(this, data).latLng
             val locationLabel =  findViewById<TextView>(R.id.user_location)
-            locationLabel.text = mPlace!!.latLng.toString()
+            locationLabel.text = mPlace.toString()
         }
         if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data
@@ -115,8 +115,8 @@ class ProfileActivity: UserModifyActivity() {
             mDisplayDate!!.text = it.birthday
 
             if(it.position != null) {
-                val position = LatLng(it.position!!.latitude, it.position!!.longitude)
-                findViewById<TextView>(R.id.user_location).text = position.toString()
+                mPlace = LatLng(it.position!!.latitude, it.position!!.longitude)
+                findViewById<TextView>(R.id.user_location).text = mPlace.toString()
             }
 
             if(it.profilePicture != null) {
@@ -130,7 +130,7 @@ class ProfileActivity: UserModifyActivity() {
     private fun getUserModified(): User {
         val userName = mPreferencesManager.getStringPreference("userName")
         return User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString()
-                , mDisplayDate!!.text.toString(), Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude), imageToString(bitmap))
+                , mDisplayDate!!.text.toString(), Position(mPlace.latitude, mPlace.longitude), imageToString(bitmap))
     }
 
 
