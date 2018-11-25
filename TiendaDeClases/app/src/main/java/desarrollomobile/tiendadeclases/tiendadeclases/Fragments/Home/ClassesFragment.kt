@@ -9,11 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.support.v4.view.ViewPager
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.ClassPagerAdapter
-import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
-import desarrollomobile.tiendadeclases.tiendadeclases.classes.ClassesAdapter
-import io.reactivex.disposables.Disposable
 
 
 class ClassesFragment : Fragment() {
