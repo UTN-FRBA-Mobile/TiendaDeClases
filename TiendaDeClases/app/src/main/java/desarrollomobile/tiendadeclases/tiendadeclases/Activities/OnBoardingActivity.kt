@@ -1,26 +1,19 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
-import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.text.Html
-import android.view.ContextMenu
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.SlideAdapter
-import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.LoginFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
-import org.w3c.dom.Text
 
 class OnBoardingActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -33,9 +26,6 @@ class OnBoardingActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var mAdapter: PagerAdapter
     lateinit var btnNext: Button
     lateinit var btnSkip: Button
-    lateinit var btnInvited: TextView
-    lateinit var btnRegister: Button
-    lateinit var btnLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,26 +34,23 @@ class OnBoardingActivity : AppCompatActivity(), View.OnClickListener {
 
         this.setContentView(R.layout.on_boarding)
 
-        mPager = findViewById(R.id.slideViewPager) as ViewPager
+        mPager = findViewById(R.id.slideViewPager)
         mAdapter = SlideAdapter(layouts, this)
         mPager.adapter = mAdapter
-        dotsLayout = findViewById(R.id.dotsLayout) as LinearLayout
-        btnSkip = findViewById(R.id.btnSkip) as Button
-        btnNext = findViewById(R.id.btnNext) as Button
+        dotsLayout = findViewById(R.id.dotsLayout)
+        btnSkip = findViewById(R.id.btnSkip)
+        btnNext = findViewById(R.id.btnNext)
 
         btnSkip.setOnClickListener(this)
         btnNext.setOnClickListener(this)
 
         createDots(0)
 
-        val context = this
-
         mPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
-            }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-            }
+            override fun onPageScrollStateChanged(p0: Int) {}
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
 
             override fun onPageSelected(position: Int) {
                 createDots(position)
@@ -85,11 +72,8 @@ class OnBoardingActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         when(v!!.id) {
-
             R.id.btnSkip -> startActivity(Intent(baseContext, HomeActivity::class.java))
-
             R.id.btnNext -> {
-
                 var nextSlide: Int = mPager.currentItem + 1
 
                 if(nextSlide < layouts.size) {
@@ -102,13 +86,10 @@ class OnBoardingActivity : AppCompatActivity(), View.OnClickListener {
 
     fun createDots(position: Int) {
 
-        if (dotsLayout!=null) {
-            dotsLayout.removeAllViews()
-        }
+        dotsLayout.removeAllViews()
+        dots = Array(layouts.size) { _ -> ImageView(this) }
 
-        dots = Array(layouts.size, {i -> ImageView(this) })
-
-        for (i in 0..layouts.size - 1) {
+        for (i in 0 until layouts.size - 1) {
             dots[i] = ImageView(this)
 
             if (i == position) {
@@ -119,9 +100,7 @@ class OnBoardingActivity : AppCompatActivity(), View.OnClickListener {
 
             var params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT)
-
             params.setMargins(4, 0, 4, 0)
-
             dotsLayout.addView(dots[i], params)
         }
     }

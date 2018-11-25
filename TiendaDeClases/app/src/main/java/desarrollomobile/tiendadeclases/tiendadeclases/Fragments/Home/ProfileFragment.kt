@@ -1,6 +1,5 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
-import android.app.Activity.RESULT_FIRST_USER
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.Context
@@ -13,15 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import desarrollomobile.tiendadeclases.tiendadeclases.R
-import org.w3c.dom.Text
 import android.graphics.drawable.ColorDrawable
 import android.widget.Button
-import desarrollomobile.tiendadeclases.tiendadeclases.Activities.MainActivity
 import java.util.*
-import android.widget.DatePicker
 import com.google.android.gms.location.places.ui.PlacePicker
-import android.widget.Toast
-import com.google.android.gms.location.places.Place
 import android.content.Intent
 
 
@@ -67,7 +61,7 @@ class ProfileFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        val viewInflated = inflater.inflate(R.layout.fragment_profile, container, false)
+        val viewInflated = inflater.inflate(R.layout.activity_profile, container, false)
 
         mDisplayDate = viewInflated.findViewById(R.id.user_birthday)
 

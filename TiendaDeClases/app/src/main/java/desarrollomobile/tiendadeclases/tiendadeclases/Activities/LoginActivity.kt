@@ -20,21 +20,18 @@ class LoginActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
 
         mPreferencesManager = PreferencesManager(this)
 
-        setContentView(R.layout.fragment_login)
-
         val button = findViewById<Button>(R.id.button_login)
-
         button.setOnClickListener{
-            val userName = findViewById<EditText>(R.id.text_usuario).text
-            val password = findViewById<EditText>(R.id.text_contraseña).text
 
-            val response = UsersApiClient.getRetrofitClient().loginUser(User(userName.toString(), password.toString(), "", "", "", null, null))
+            val userRegistered = createLoginUser()
+            val response = UsersApiClient.getRetrofitClient().loginUser(userRegistered)
             response.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{it ->
                 if(it.status == 200) {
-                    mPreferencesManager.setStringPreference("userName", userName.toString())
+                    mPreferencesManager.setStringPreference("userName", userRegistered.userName)
 
                     val intent = Intent(this, HomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -45,5 +42,12 @@ class LoginActivity: AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun createLoginUser(): User {
+        val userName = findViewById<EditText>(R.id.text_usuario).text
+        val password = findViewById<EditText>(R.id.text_contraseña).text
+
+        return User(userName.toString(), password.toString(), "", "", "", null, null)
     }
 }

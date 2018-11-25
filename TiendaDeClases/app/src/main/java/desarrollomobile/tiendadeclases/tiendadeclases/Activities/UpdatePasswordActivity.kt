@@ -19,13 +19,13 @@ class UpdatePasswordActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_password)
+        setContentView(R.layout.activity_change_password)
         mPreferenceManager = PreferencesManager(this)
 
         mButtonChangePassword = findViewById(R.id.change_password_button)
         mButtonChangePassword.setOnClickListener{
 
-            if (findViewById<EditText>(R.id.newPassword_edit).text.toString() == findViewById<EditText>(R.id.repeatPassword_edit).text.toString()) {
+            if (passwordChecks()) {
                 val responsePut = UsersApiClient.getRetrofitClient().updatePassword(PasswordRequest(mPreferenceManager.getStringPreference("userName"),findViewById<EditText>(R.id.oldPassword_edit).text.toString(), findViewById<EditText>(R.id.newPassword_edit).text.toString()))
                 responsePut.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
                     if(it.status == 200) {
@@ -39,6 +39,10 @@ class UpdatePasswordActivity: AppCompatActivity() {
                 Toast.makeText(this, "Las contraseñas deben coincidir", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    fun passwordChecks(): Boolean {
+        return findViewById<EditText>(R.id.newPassword_edit).text.toString() == findViewById<EditText>(R.id.repeatPassword_edit).text.toString()
     }
 
 }

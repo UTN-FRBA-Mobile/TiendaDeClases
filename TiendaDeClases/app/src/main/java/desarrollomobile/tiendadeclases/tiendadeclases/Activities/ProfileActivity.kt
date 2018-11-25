@@ -45,7 +45,7 @@ class ProfileActivity: AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.fragment_profile)
+        setContentView(R.layout.activity_profile)
         mPreferencesManager = PreferencesManager(this)
 
         mDisplayDate = findViewById(R.id.user_birthday)
