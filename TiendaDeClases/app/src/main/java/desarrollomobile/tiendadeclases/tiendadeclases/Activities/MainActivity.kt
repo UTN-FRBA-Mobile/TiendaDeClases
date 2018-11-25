@@ -1,6 +1,5 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,14 +7,12 @@ import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.LoginFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.SplashFragment
-import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.Tutorial1Fragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 
 
-class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionListener, Tutorial1Fragment.OnFragmentInteractionListener, LoginFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), SplashFragment.OnFragmentInteractionListener {
 
     private lateinit var mPreferencesManager: PreferencesManager
 

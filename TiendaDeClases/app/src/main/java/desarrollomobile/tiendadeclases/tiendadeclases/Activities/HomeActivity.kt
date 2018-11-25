@@ -1,18 +1,14 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import android.widget.Toolbar
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasFragment
-import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ProfileFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
@@ -23,7 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteractionListener, MessagesFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener {
+class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteractionListener, MessagesFragment.OnFragmentInteractionListener {
 
     lateinit var mPreferencesManager: PreferencesManager
 
