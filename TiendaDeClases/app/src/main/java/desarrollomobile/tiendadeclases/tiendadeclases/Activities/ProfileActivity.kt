@@ -120,7 +120,7 @@ class ProfileActivity: UserModifyActivity() {
             }
 
             if(it.profilePicture != null) {
-                val bmp = BitmapFactory.decodeByteArray(it.profilePicture,0, it.profilePicture!!.size);
+                val bmp = BitmapFactory.decodeByteArray(Base64.getDecoder().decode(it.profilePicture),0, Base64.getDecoder().decode(it.profilePicture).size);
                 findViewById<ImageView>(R.id.profile_pic_view).setImageBitmap(bmp)
             }
 

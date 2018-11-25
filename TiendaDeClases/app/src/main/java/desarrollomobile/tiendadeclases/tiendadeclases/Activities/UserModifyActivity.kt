@@ -53,12 +53,12 @@ abstract class UserModifyActivity: AppCompatActivity() {
     }
 
 
-    fun imageToString(bitmap: Bitmap?): ByteArray? {
+    fun imageToString(bitmap: Bitmap?): String? {
 
         val byteArray = ByteArrayOutputStream()
         if(bitmap != null) {
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
-            return byteArray.toByteArray()
+            return Base64.getEncoder().encodeToString(byteArray.toByteArray())
         }
         return null
     }
