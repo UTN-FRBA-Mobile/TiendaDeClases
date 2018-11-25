@@ -89,7 +89,7 @@ class OnBoardingActivity : AppCompatActivity(), View.OnClickListener {
         dotsLayout.removeAllViews()
         dots = Array(layouts.size) { _ -> ImageView(this) }
 
-        for (i in 0 until layouts.size - 1) {
+        for (i in 0 until layouts.size) {
             dots[i] = ImageView(this)
 
             if (i == position) {
