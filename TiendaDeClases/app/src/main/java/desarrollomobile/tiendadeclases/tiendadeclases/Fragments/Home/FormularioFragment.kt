@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.fragment_formulario.*
@@ -162,6 +163,9 @@ class FormularioFragment : Fragment(){
             latitude = location.latitude
             longitude = location.longitude
             //Toast.makeText(contexto, "La ubicacion es la siguiente: latitud -> " + latitude + " longitude -> " + longitude, Toast.LENGTH_SHORT).show()
+            editLatitud.setText(latitude.toString(), TextView.BufferType.EDITABLE)
+            editLongitud.setText(longitude.toString(),TextView.BufferType.EDITABLE)
+
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
@@ -170,4 +174,5 @@ class FormularioFragment : Fragment(){
             Toast.makeText(contexto, "El GPS se debe encontrar encendido para poder utilzar la ubicacion actual", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

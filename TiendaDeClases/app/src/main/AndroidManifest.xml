@@ -36,5 +36,8 @@
             </intent-filter>
         </service>
         <uses-library android:name="com.google.android.maps" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 </manifest>
