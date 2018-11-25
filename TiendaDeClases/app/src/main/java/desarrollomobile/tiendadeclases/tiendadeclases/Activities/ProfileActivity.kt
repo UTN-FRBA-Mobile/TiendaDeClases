@@ -25,52 +25,39 @@ import io.reactivex.schedulers.Schedulers
 import java.io.ByteArrayOutputStream
 import java.util.*
 
-class ProfileActivity: AppCompatActivity() {
+class ProfileActivity: UserModifyActivity() {
 
-    private val TAG = "ProfileFragment"
+    private val TAG = "ProfileActivity"
+
     private lateinit var mPreferencesManager: PreferencesManager
+
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
-    private lateinit var mLocationButton: Button
+
     private val PLACE_PICKER_REQUEST = 1
     private val PICK_IMAGE = 100
+
     private lateinit var mPictureProfile: ImageView
     private lateinit var imageUri: Uri
     private var bitmap: Bitmap? = null
+    private var mPlace: Place? = null
+
+    private lateinit var mLocationButton: Button
     private lateinit var mChangePasswordButton: Button
     private lateinit var mSaveChangesButton: Button
-    private var mPlace: Place? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_profile)
         mPreferencesManager = PreferencesManager(this)
 
         mDisplayDate = findViewById(R.id.user_birthday)
-
         mDisplayDate?.setOnClickListener{
-            val cal = Calendar.getInstance()
-            val year = cal.get(Calendar.YEAR)
-            val month = cal.get(Calendar.MONTH)
-            val day = cal.get(Calendar.DAY_OF_MONTH)
-
-            val dialog = DatePickerDialog(
-                    this,
-                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                    mDateSetListener,
-                    year, month, day)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.show()
+            displayDate(mDateSetListener)
         }
-
-        mDateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
-            var month = month
-            month = month + 1
-
-            val date = month.toString() + "/" + day + "/" + year
-            mDisplayDate?.setText(date)
+        mDateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            dateModelate(year, month, day, mDisplayDate)
         }
 
         mLocationButton = findViewById(R.id.change_location)

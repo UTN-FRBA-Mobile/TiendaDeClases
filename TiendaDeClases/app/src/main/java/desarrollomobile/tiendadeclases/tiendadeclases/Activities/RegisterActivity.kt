@@ -23,13 +23,13 @@ import io.reactivex.schedulers.Schedulers
 import java.io.ByteArrayOutputStream
 import java.util.*
 
-class RegisterActivity: AppCompatActivity() {
+class RegisterActivity: UserModifyActivity() {
 
     private val TAG = "RegisterFragment"
     private val PICK_IMAGE = 100
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
-    private var mLocationButton: Button? = null
+    private lateinit var mLocationButton: Button
     private var mRegisterButton: Button? = null
     private val PLACE_PICKER_REQUEST = 1
     private lateinit var mPreferencesManager: PreferencesManager
@@ -46,35 +46,22 @@ class RegisterActivity: AppCompatActivity() {
         mPreferencesManager = PreferencesManager(this)
 
         mDisplayDate = findViewById(R.id.user_birthday)
-
         mDisplayDate?.setOnClickListener{
-            val cal = Calendar.getInstance()
-            val year = cal.get(Calendar.YEAR)
-            val month = cal.get(Calendar.MONTH)
-            val day = cal.get(Calendar.DAY_OF_MONTH)
-
-            val dialog = DatePickerDialog(
-                    this,
-                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                    mDateSetListener,
-                    year, month, day)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.show()
+            displayDate(mDateSetListener)
+        }
+        mDateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            dateModelate(year, month, day, mDisplayDate)
         }
 
-        mDateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
-            var month = month
-            month = month + 1
-
-            val date = month.toString() + "/" + day + "/" + year
-            mDisplayDate?.setText(date)
-        }
-
-        mLocationButton = findViewById(R.id.add_location)
-
-        mLocationButton?.setOnClickListener{
+        mLocationButton = findViewById(R.id.change_location)
+        mLocationButton.setOnClickListener{
             val builder = PlacePicker.IntentBuilder()
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
+        }
+
+        mPictureProfile = findViewById(R.id.profile_pic_view)
+        mPictureProfile.setOnClickListener{
+            openGallery()
         }
 
         mRegisterButton = findViewById(R.id.register_button)
