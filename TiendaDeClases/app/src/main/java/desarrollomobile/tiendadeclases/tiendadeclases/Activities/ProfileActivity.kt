@@ -83,7 +83,7 @@ class ProfileActivity: UserModifyActivity() {
             val responseGet = UsersApiClient.getRetrofitClient().modifyUser(getUserModified())
 
             responseGet.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{
-                Toast.makeText(this, "User succesfuly modified", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, this.getString(R.string.successfuly_updated_user), Toast.LENGTH_LONG).show()
             }
         }
 

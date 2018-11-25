@@ -78,11 +78,11 @@ class RegisterActivity: UserModifyActivity() {
                         startActivity(intent)
                         finish()
                     } else {
-                        Toast.makeText(this, "Sorry username already exists, please choose another", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, this.getString(R.string.username_already_exist), Toast.LENGTH_LONG).show()
                     }
                 }
             } else {
-                Toast.makeText(this, "Please complete obligatory fields username, password and location", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, this.getString(R.string.fill_obligatory_fields), Toast.LENGTH_LONG).show()
             }
         }
 

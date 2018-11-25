@@ -38,7 +38,7 @@ class LoginActivity: AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(this, "Sorry there was an error on your login, change username/password", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, this.getString(R.string.wrong_login), Toast.LENGTH_LONG).show()
                 }
             }
         }

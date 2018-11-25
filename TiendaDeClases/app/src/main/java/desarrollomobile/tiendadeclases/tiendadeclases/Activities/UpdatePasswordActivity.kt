@@ -29,14 +29,14 @@ class UpdatePasswordActivity: AppCompatActivity() {
                 val responsePut = UsersApiClient.getRetrofitClient().updatePassword(PasswordRequest(mPreferenceManager.getStringPreference("userName"),findViewById<EditText>(R.id.oldPassword_edit).text.toString(), findViewById<EditText>(R.id.newPassword_edit).text.toString()))
                 responsePut.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
                     if(it.status == 200) {
-                        Toast.makeText(this, "Contraseña Actualizada", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, this.getString(R.string.successfuly_updated_password), Toast.LENGTH_LONG).show()
                         finish()
                     } else {
-                        Toast.makeText(this, "La contraseña vieja es incorrecta", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, this.getString(R.string.wrong_old_password), Toast.LENGTH_LONG).show()
                     }
                 }
             } else {
-                Toast.makeText(this, "Las contraseñas deben coincidir", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, this.getString(R.string.wrong_repeated_password), Toast.LENGTH_LONG).show()
             }
         }
     }

@@ -42,4 +42,17 @@
     <string name="register">Registrar</string>
     <string name="skip">Omitir</string>
     <string name="next">Siguiente</string>
+
+
+
+
+    <string name="successfuly_updated_password">Contraseña Actualizada</string>
+    <string name="wrong_old_password">La contraseña vieja es incorrecta</string>
+    <string name="wrong_repeated_password">Las contraseñas deben coincidir</string>
+
+    <string name="wrong_login">Ingreso incorrecto, verifuqe los campos</string>
+    <string name="successfuly_updated_user">Usuario modificado exitosamente</string>
+
+    <string name="username_already_exist">El nombre de usuario ya esta en uso. Seleccione otro</string>
+    <string name="fill_obligatory_fields">Por favor complete los datos obligatorios: Nombre de usuario, contraseña y ubicacion</string>
 </resources>
