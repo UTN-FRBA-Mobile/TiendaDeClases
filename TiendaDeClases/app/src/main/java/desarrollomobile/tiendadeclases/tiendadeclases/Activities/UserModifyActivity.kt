@@ -57,7 +57,7 @@ abstract class UserModifyActivity: AppCompatActivity() {
 
         val byteArray = ByteArrayOutputStream()
         if(bitmap != null) {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArray)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 5, byteArray)
             return Base64.getEncoder().encodeToString(byteArray.toByteArray())
         }
         return null
