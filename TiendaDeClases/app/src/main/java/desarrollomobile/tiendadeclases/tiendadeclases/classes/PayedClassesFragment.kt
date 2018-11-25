@@ -22,13 +22,12 @@ class PayedClassesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val homeActivity = this.activity as HomeActivity
-        // Set the adapter
         if (view is RecyclerView) {
             with(view) {
-                var classesAdapter = PayedClassesAdapter(listener)
+                val classesAdapter = PayedClassesAdapter(listener)
                 layoutManager = LinearLayoutManager(context)
                 adapter = classesAdapter
-                classesAdapter.items = homeActivity.classesList
+                classesAdapter.items = homeActivity.classesList.filter { c -> c.status.equals(2) }
                 classesAdapter.notifyDataSetChanged()
             }
         }
@@ -36,7 +35,6 @@ class PayedClassesFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.classes_payed, container, false)
     }
 

@@ -20,13 +20,12 @@ class MarkedClassesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val homeActivity = this.activity as HomeActivity
-        // Set the adapter
         if (view is RecyclerView) {
             with(view) {
-                var classesAdapter = MarkedClassesAdapter(listener)
+                val classesAdapter = MarkedClassesAdapter(listener)
                 layoutManager = LinearLayoutManager(context)
                 adapter = classesAdapter
-                classesAdapter.items = homeActivity.classesList
+                classesAdapter.items = homeActivity.classesList.filter { c -> c.status.equals(1) }
                 classesAdapter.notifyDataSetChanged()
             }
         }
@@ -34,7 +33,6 @@ class MarkedClassesFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.classes_marked, container, false)
     }
 

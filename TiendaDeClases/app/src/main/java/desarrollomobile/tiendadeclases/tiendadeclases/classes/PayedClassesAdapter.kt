@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
-import kotlinx.android.synthetic.main.class_marked.view.*
+import kotlinx.android.synthetic.main.class_payed.view.*
 
 class PayedClassesAdapter(private val mListener: ClassesFragment.OnListFragmentInteractionListener?) : RecyclerView.Adapter<PayedClassesAdapter.ViewHolder>() {
 
@@ -23,8 +23,7 @@ class PayedClassesAdapter(private val mListener: ClassesFragment.OnListFragmentI
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // dummy
-        var item = items[position]
+        val item = items[position]
         holder.name.text = item.name
         holder.description.text = item.description
         holder.date.text = item.date
@@ -34,9 +33,9 @@ class PayedClassesAdapter(private val mListener: ClassesFragment.OnListFragmentI
     override fun getItemCount(): Int = items.size
 
     inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
-        val name: TextView = mView.className
-        val description: TextView = mView.classDescription
-        val date: TextView = mView.classDate
-        val price: TextView = mView.classPrice
+        val name: TextView = mView.payedClassName
+        val description: TextView = mView.payedClassDescription
+        val date: TextView = mView.payedClassDate
+        val price: TextView = mView.payedClassPrice
     }
 }

@@ -23,8 +23,7 @@ class MarkedClassesAdapter(private val mListener: ClassesFragment.OnListFragment
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // dummy
-        var item = items[position]
+        val item = items[position]
         holder.name.text = item.name
         holder.description.text = item.description
         holder.date.text = item.date
@@ -34,9 +33,9 @@ class MarkedClassesAdapter(private val mListener: ClassesFragment.OnListFragment
     override fun getItemCount(): Int = items.size
 
     inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
-        val name: TextView = mView.className
-        val description: TextView = mView.classDescription
-        val date: TextView = mView.classDate
-        val price: TextView = mView.classPrice
+        val name: TextView = mView.markedClassName
+        val description: TextView = mView.markedClassDescription
+        val date: TextView = mView.markedClassDate
+        val price: TextView = mView.markedClassPrice
     }
 }

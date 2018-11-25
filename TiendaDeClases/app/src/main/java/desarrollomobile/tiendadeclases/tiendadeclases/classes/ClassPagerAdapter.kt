@@ -11,7 +11,9 @@ class ClassPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
             0 -> {
                 MarkedClassesFragment()
             }
-            1 -> PayedClassesFragment()
+            1 -> {
+                PayedClassesFragment()
+            }
             else -> {
                 return ScheduledClassesFragment()
             }

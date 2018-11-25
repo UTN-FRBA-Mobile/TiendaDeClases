@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
-import kotlinx.android.synthetic.main.class_marked.view.*
+import kotlinx.android.synthetic.main.class_scheduled.view.*
 
 class ScheduledClassesAdapter(private val mListener: ClassesFragment.OnListFragmentInteractionListener?) : RecyclerView.Adapter<ScheduledClassesAdapter.ViewHolder>() {
 
@@ -23,8 +23,7 @@ class ScheduledClassesAdapter(private val mListener: ClassesFragment.OnListFragm
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // dummy
-        var item = items[position]
+        val item = items[position]
         holder.name.text = item.name
         holder.date.text = item.date
     }

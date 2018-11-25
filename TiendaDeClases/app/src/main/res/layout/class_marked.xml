@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:id="@+id/markedClasses"
     style="@style/class_item">
 
     <TextView
-        android:id="@+id/className"
+        android:id="@+id/markedClassName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -15,29 +16,37 @@
         android:textSize="18sp"
         android:textStyle="bold"
         tools:text="Nombre de la clase" />
-    <TextView android:id="@+id/classDate"
+
+    <Button
+        android:id="@+id/payButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/className"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/classes_payButton" />
+    <TextView android:id="@+id/markedClassDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/markedClassName"
         tools:text="Fecha" />
     <TextView
         android:id="@+id/datePriceSeparator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/classDate"
-        android:layout_toEndOf="@id/classDate"
+        android:layout_alignBaseline="@id/markedClassDate"
+        android:layout_toEndOf="@id/markedClassDate"
         android:text="@string/classes_datePriceSeparator" />
-    <TextView android:id="@+id/classPrice"
+    <TextView android:id="@+id/markedClassPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/classDate"
+        android:layout_alignBaseline="@id/markedClassDate"
         android:layout_toEndOf="@id/datePriceSeparator"
         tools:text="Precio"
         android:textStyle="bold"
         android:textSize="17sp"/>
-    <TextView android:id="@+id/classDescription"
+    <TextView android:id="@+id/markedClassDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/classDate"
+        android:layout_below="@id/markedClassDate"
         tools:text="Descripción de la clase" />
 </RelativeLayout>
