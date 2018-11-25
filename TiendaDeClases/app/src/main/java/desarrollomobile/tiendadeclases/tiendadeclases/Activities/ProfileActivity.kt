@@ -11,27 +11,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.*
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.GsonBuilder
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.users.Position
 import desarrollomobile.tiendadeclases.tiendadeclases.users.User
-import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApi
+import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApiClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.ByteArrayOutputStream
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class ProfileActivity: AppCompatActivity() {
 
@@ -58,7 +50,7 @@ class ProfileActivity: AppCompatActivity() {
 
         mDisplayDate = findViewById(R.id.user_birthday)
 
-        mDisplayDate?.setOnClickListener(View.OnClickListener {
+        mDisplayDate?.setOnClickListener{
             val cal = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
@@ -71,7 +63,7 @@ class ProfileActivity: AppCompatActivity() {
                     year, month, day)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
-        })
+        }
 
         mDateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             var month = month
@@ -82,56 +74,41 @@ class ProfileActivity: AppCompatActivity() {
         }
 
         mLocationButton = findViewById(R.id.change_location)
-        mLocationButton.setOnClickListener(View.OnClickListener {
+        mLocationButton.setOnClickListener{
             val builder = PlacePicker.IntentBuilder()
-
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
 
-        })
+        }
 
         mPictureProfile = findViewById(R.id.profile_pic_view)
-        mPictureProfile.setOnClickListener(View.OnClickListener {
+        mPictureProfile.setOnClickListener{
                 openGallery()
-        })
+        }
 
         mChangePasswordButton = findViewById(R.id.change_password)
-        mChangePasswordButton.setOnClickListener(View.OnClickListener {
+        mChangePasswordButton.setOnClickListener{
             val intent = Intent(this, UpdatePasswordActivity::class.java)
             startActivity(intent)
-        })
+        }
 
         mSaveChangesButton = findViewById(R.id.save_changes)
-        mSaveChangesButton.setOnClickListener(View.OnClickListener {
-            val userName = mPreferencesManager.getStringPreference("userName")
-            val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.BODY
-            }
-            val client : OkHttpClient = OkHttpClient.Builder().apply {
-                this.addInterceptor(interceptor)
-            }.connectTimeout(60, TimeUnit.SECONDS).build()
-            val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
-
-            val userApi = retrofit.create(UsersApi::class.java)
+        mSaveChangesButton.setOnClickListener{
 
             var position: Position? = null
             if (mPlace != null) {
                 position = Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude)
             }
 
+            val userName = mPreferencesManager.getStringPreference("userName")
             val userModify = User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString()
                     , mDisplayDate!!.text.toString(), position, imageToString())
 
-            val responseGet = userApi.modifyUser(userModify)
+            val responseGet = UsersApiClient.getRetrofitClient().modifyUser(userModify)
 
-            responseGet.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
-
+            responseGet.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{
                 Toast.makeText(this, "User succesfuly modified", Toast.LENGTH_LONG).show()
-
-
             }
-        })
+        }
 
         fillProfileData()
     }
@@ -157,19 +134,7 @@ class ProfileActivity: AppCompatActivity() {
     fun fillProfileData() {
 
         val userName = mPreferencesManager.getStringPreference("userName")
-        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            this.level = HttpLoggingInterceptor.Level.BODY
-        }
-        val client : OkHttpClient = OkHttpClient.Builder().apply {
-            this.addInterceptor(interceptor)
-        }.build()
-        val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
-
-        val userApi = retrofit.create(UsersApi::class.java)
-
-        val responseGet = userApi.getUser(userName)
+        val responseGet = UsersApiClient.getRetrofitClient().getUser(userName)
         responseGet.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{ it ->
 
             findViewById<TextView>(R.id.user_username).text = userName

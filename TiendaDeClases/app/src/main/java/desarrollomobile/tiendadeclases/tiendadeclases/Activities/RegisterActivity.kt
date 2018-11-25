@@ -2,7 +2,6 @@ package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -11,25 +10,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.View
 import android.widget.*
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
-import com.google.gson.GsonBuilder
-import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ProfileFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.users.Position
 import desarrollomobile.tiendadeclases.tiendadeclases.users.User
-import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApi
+import desarrollomobile.tiendadeclases.tiendadeclases.users.UsersApiClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -57,7 +47,7 @@ class RegisterActivity: AppCompatActivity() {
 
         mDisplayDate = findViewById(R.id.user_birthday)
 
-        mDisplayDate?.setOnClickListener(View.OnClickListener {
+        mDisplayDate?.setOnClickListener{
             val cal = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
@@ -70,7 +60,7 @@ class RegisterActivity: AppCompatActivity() {
                     year, month, day)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
-        })
+        }
 
         mDateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             var month = month
@@ -82,29 +72,17 @@ class RegisterActivity: AppCompatActivity() {
 
         mLocationButton = findViewById(R.id.add_location)
 
-        mLocationButton?.setOnClickListener(View.OnClickListener {
+        mLocationButton?.setOnClickListener{
             val builder = PlacePicker.IntentBuilder()
-
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
-
-        })
-
-        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            this.level = HttpLoggingInterceptor.Level.BODY
         }
-        val client : OkHttpClient = OkHttpClient.Builder().apply {
-            this.addInterceptor(interceptor)
-        }.build()
-        val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("http://167.99.3.180:8080/TDC-0.1/").client(client).build()
 
-        mRegisterButton = findViewById<Button>(R.id.register_button)
+        mRegisterButton = findViewById(R.id.register_button)
 
-        mRegisterButton?.setOnClickListener(View.OnClickListener {
+        mRegisterButton?.setOnClickListener{
             if (findViewById<EditText>(R.id.userName_edit).text.toString() != "" &&
                     findViewById<EditText>(R.id.password_edit).text.toString() != "") {
-                val userApi = retrofit.create(UsersApi::class.java)
+                val userApi = UsersApiClient.getRetrofitClient()
                 var position: Position? = null
                 if (mPlace != null) {
                     position = Position(mPlace!!.latLng.latitude, mPlace!!.latLng.longitude)
@@ -125,12 +103,12 @@ class RegisterActivity: AppCompatActivity() {
                     }
                 }
             }
-        })
+        }
 
         mPictureProfile = findViewById(R.id.profile_pic_view)
-        mPictureProfile.setOnClickListener(View.OnClickListener {
+        mPictureProfile.setOnClickListener{
             openGallery()
-        })
+        }
 
     }
 
