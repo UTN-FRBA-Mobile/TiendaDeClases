@@ -48,8 +48,8 @@ class HomeActivity : AppCompatActivity(), CategoriesFragment.OnFragmentInteracti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        var navigation = findViewById<BottomNavigationView>(R.id.navigation)
 
+        var navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_categories
 

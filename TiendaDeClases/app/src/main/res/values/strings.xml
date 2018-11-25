@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">TiendaDeClases</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Titulo -->
     <string name="title">Tienda De Clases</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Tutorial -->
     <string name="tutorial1_text">Bienvenido a la aplicación oficial de TiendaDeClases!</string>
     <string name="tutorial1_text2">Seguí estos pasos para empezar a tomar clases:</string>
     <string name="tutorial2_text">Creá tu cuenta</string>
@@ -12,14 +12,21 @@
     <string name="tutorial4_text">Contactá directamente con un profesor y empezá!</string>
     <string name="tutorial4_button">Empezar</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Login -->
     <string name="login_usuario">Nombre de usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_ingresar">Ingresar</string>
+
+    <!-- Pantalla principal -->
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_categories">Categorías</string>
     <string name="title_classes">Mis clases</string>
     <string name="title_messages">Mensajes</string>
+
+    <!-- Classes -->
+    <string name="classes_datePriceSeparator">" - "</string>
+    <string name="classes_payButton">"Pagar"</string>
+    <string name="classes_scheduleButton">"Agendar"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
