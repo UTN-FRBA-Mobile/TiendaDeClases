@@ -114,9 +114,10 @@ public class SubCategoriasFragment extends Fragment implements SubCategoriaListe
 
     @Override
     public void onItemClick(String nombreSubcat) {
-        //Toast.makeText(getContext(), nombreSubcat, Toast.LENGTH_SHORT).show();
         Intent myIntent = new Intent(getContext(), FormActivity.class);
+
         myIntent.putExtra("subcategoria", nombreSubcat);
+
         startActivity(myIntent);
     }
 

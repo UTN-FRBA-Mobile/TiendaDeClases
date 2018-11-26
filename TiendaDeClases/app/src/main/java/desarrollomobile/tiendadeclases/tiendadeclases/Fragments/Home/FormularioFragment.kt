@@ -1,6 +1,7 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -13,9 +14,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.FormActivity
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.fragment_formulario.*
 import kotlin.properties.Delegates
@@ -66,16 +69,27 @@ class FormularioFragment : Fragment(){
         this.subCategoria = this.arguments!!.getString("NAME_KEY")!!.toString()
 
 
+        val v = inflater.inflate(R.layout.fragment_formulario, container, false)
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_formulario, container, false)
+        return v;
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         editCategoria.setText(this.subCategoria, TextView.BufferType.EDITABLE)
+            buttonEnviar.setOnClickListener(object: View.OnClickListener {
+                override fun onClick(view: View): Unit {
+                    // Handler code here.
+                    val intent = Intent(context, HomeActivity::class.java);
 
+                    startActivity(intent);
+                    Toast.makeText(context, "Formulario enviado", Toast.LENGTH_SHORT).show()
+
+                }
+            })
         cbUbicacionActual.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 try {
