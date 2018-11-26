@@ -83,9 +83,10 @@ class FormularioFragment : Fragment(){
             buttonEnviar.setOnClickListener(object: View.OnClickListener {
                 override fun onClick(view: View): Unit {
                     // Handler code here.
-                    val intent = Intent(context, HomeActivity::class.java);
 
-                    startActivity(intent);
+                    val intent = Intent(context, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                     Toast.makeText(context, "Formulario enviado", Toast.LENGTH_SHORT).show()
 
                 }
