@@ -37,7 +37,7 @@ class FormularioFragment : Fragment(){
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var listener: CategoriesFragment.OnFragmentInteractionListener? = null
+//    private var listener: ClassesFragment.OnListFragmentInteractionListener? = null
 
     private var locationManager : LocationManager? = null
     var deschequear: Boolean by Delegates.observable(false) {
@@ -99,25 +99,25 @@ class FormularioFragment : Fragment(){
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
+  //  fun onButtonPressed(uri: Uri) {
+ //       listener?.onFragmentInteraction(uri)
+ //   }
 
     var contexto : Context ?= null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is CategoriesFragment.OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
+    //    if (context is CategoriasFragment.OnFragmentInteractionListener) {
+  //          listener = context
+      //  } else {
+       //     throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+       // }
         locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
         contexto = context
     }
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
+        //slistener = null
     }
 
     /**

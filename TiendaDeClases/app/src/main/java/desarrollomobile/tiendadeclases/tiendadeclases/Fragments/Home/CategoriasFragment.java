@@ -12,16 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.CategoriaListener;
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.CategoriasAdapter;
 import desarrollomobile.tiendadeclases.tiendadeclases.ApiClient;
 import desarrollomobile.tiendadeclases.tiendadeclases.R;
 import desarrollomobile.tiendadeclases.tiendadeclases.Service.Categoria;
 import desarrollomobile.tiendadeclases.tiendadeclases.Service.CategoriasClient;
 import desarrollomobile.tiendadeclases.tiendadeclases.Service.ListaDeCategorias;
-import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import desarrollomobile.tiendadeclases.tiendadeclases.Service.SubCategorias;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,7 +31,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoriasFragment extends Fragment {
+public class CategoriasFragment extends Fragment implements CategoriaListener {
 
     /*
     Declarar instancias globales
@@ -48,7 +50,7 @@ public class CategoriasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflar el layout para este fragmento
         View view = inflater.inflate(R.layout.fragment_categorias, container, false);
         //inicializarVistas(view);
         // Obtener el Recycler
@@ -74,13 +76,9 @@ public class CategoriasFragment extends Fragment {
             @Override
             public void onResponse(Call<ListaDeCategorias> call, Response<ListaDeCategorias> response) {
                 if (response.isSuccessful()) {
-                    ListaDeCategorias listaDeCategorias = response.body();
-                    // Crear un nuevo adaptador
-                    adapter = new CategoriasAdapter(listaDeCategorias.getCategorias());
-                    recycler.setAdapter(adapter);
-                    //mostrarCategorias(listaDeCategorias.getCategorias());
+                    mostrarCategorias(response.body().getCategorias());
                 } else {
-                    Toast.makeText(getActivity(), "Fallo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Falló la conexión", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -91,14 +89,37 @@ public class CategoriasFragment extends Fragment {
         });
     }
 
+
     private void mostrarCategorias(List<Categoria> lista) {
-        nombreUsuario.setText(lista.get(0).getNombre());
+        // Crear un nuevo adaptador
+        adapter = new CategoriasAdapter(lista, CategoriasFragment.this);
+        recycler.setAdapter(adapter);
+
+
+        /*nombreUsuario.setText(lista.get(0).getNombre());
         subCat1.setText(lista.get(0).getSubCats());
         Picasso.get()
                 .load("http://www.tiendadeclases.com/wp-content/uploads/2018/08/bannertdc8.jpg")
                 .resize(150, 150)
                 .into(imagenCat);
-
+*/
     }
 
+    @Override
+    public void onItemClick(ArrayList<SubCategorias> subcat) {
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("subCategorias", subcat);
+        SubCategoriasFragment SubCats = new SubCategoriasFragment ();
+        SubCats.setArguments(args);
+
+        getActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.HomeFrame, SubCats)
+                .commit();
+
+
+
+        //Toast.makeText(getContext(), subcat.get(0).getNombre(), Toast.LENGTH_SHORT).show();
+    }
 }

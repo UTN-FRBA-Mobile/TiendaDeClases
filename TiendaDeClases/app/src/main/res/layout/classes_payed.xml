@@ -2,10 +2,11 @@
 <android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
+    android:id="@+id/payedList"
     android:name="desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layoutManager="LinearLayoutManager"
-    tools:context=".ClassesFragment"
-    tools:listitem="@layout/class_main" />
+    tools:context=".Fragments.Home.ClassesFragment"
+    tools:listitem="@layout/class_payed" >
+</android.support.v7.widget.RecyclerView>

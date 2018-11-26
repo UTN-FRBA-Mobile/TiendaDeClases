@@ -10,6 +10,7 @@ import retrofit2.http.GET
 interface Api {
     @GET("/")
     fun getClasses(): Observable<ClassesResponse>
+
     companion object {
         fun create(): Api {
             val retrofit = Retrofit.Builder()
@@ -17,7 +18,7 @@ interface Api {
                             RxJava2CallAdapterFactory.create())
                     .addConverterFactory(
                             GsonConverterFactory.create())
-                    .baseUrl("http://demo6160290.mockable.io")
+                    .baseUrl("https://demo6160290.mockable.io")
                     .client(OkHttpClient.Builder().build())
                     .build()
             return retrofit.create(Api::class.java)
