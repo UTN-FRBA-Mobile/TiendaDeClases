@@ -15,7 +15,7 @@ class ClassPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
                 PayedClassesFragment()
             }
             else -> {
-                return ScheduledClassesFragment()
+                ScheduledClassesFragment()
             }
         }
     }
@@ -29,7 +29,7 @@ class ClassPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
             0 -> "Seleccionadas"
             1 -> "Pagadas"
             else -> {
-                return "Agendadas"
+                "Agendadas"
             }
         }
     }

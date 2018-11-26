@@ -49,7 +49,7 @@ class MessagesClassesAdapter(private val mListener: ClassesFragment.OnListFragme
             var item = mutableItems.removeAt(adapterPosition)
             items = mutableItems.toList()
             var activity = v.context as HomeActivity
-            activity.classesList.add(item)
+            activity.markedClassesList.add(item)
             notifyDataSetChanged()
             Toast.makeText(v.context, "Agregaste la clase a 'Mis Clases'", Toast.LENGTH_SHORT).show()
         }

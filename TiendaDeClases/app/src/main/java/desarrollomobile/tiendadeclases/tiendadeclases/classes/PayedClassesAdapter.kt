@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.class_payed.view.*
@@ -37,5 +40,19 @@ class PayedClassesAdapter(private val mListener: ClassesFragment.OnListFragmentI
         val description: TextView = mView.payedClassDescription
         val date: TextView = mView.payedClassDate
         val price: TextView = mView.payedClassPrice
+
+        init {
+            val scheduleButton: Button = mView.scheduleButton
+            scheduleButton.setOnClickListener { v -> scheduleClass(v) }
+        }
+
+        fun scheduleClass(v: View) {
+            val activity = v.context as HomeActivity
+            var item = activity.payedClassesList.removeAt(adapterPosition)
+            item.status = 3
+            activity.scheduledClassesList.add(item)
+            notifyDataSetChanged()
+            Toast.makeText(v.context, "Clase agendada exitosamente", Toast.LENGTH_SHORT).show()
+        }
     }
 }
