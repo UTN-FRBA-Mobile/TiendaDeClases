@@ -18,8 +18,8 @@ import android.support.v4.app.ActivityCompat
 
 abstract class UserModifyActivity: AppCompatActivity() {
 
-    val PICK_FROM_GALLERY = 1
-    val PICK_LOCATION = 2
+    val PICK_FROM_GALLERY = 100
+    val PICK_LOCATION = 1
 
     fun displayDate(dateSetListener: DatePickerDialog.OnDateSetListener?) {
         val cal = Calendar.getInstance()
@@ -49,7 +49,7 @@ abstract class UserModifyActivity: AppCompatActivity() {
             val builder = PlacePicker.IntentBuilder()
             startActivityForResult(builder.build(this), PICK_LOCATION)
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE), PICK_FROM_GALLERY);
+            ActivityCompat.requestPermissions(this, arrayOf(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION), PICK_LOCATION);
         }
     }
 
@@ -92,7 +92,7 @@ abstract class UserModifyActivity: AppCompatActivity() {
                     startActivityForResult(gallery, PICK_FROM_GALLERY)
                 }
             PICK_LOCATION ->
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     val builder = PlacePicker.IntentBuilder()
                     startActivityForResult(builder.build(this), PICK_LOCATION)
                 }

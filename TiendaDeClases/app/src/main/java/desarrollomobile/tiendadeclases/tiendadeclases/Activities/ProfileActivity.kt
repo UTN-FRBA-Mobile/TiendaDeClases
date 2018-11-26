@@ -62,13 +62,13 @@ class ProfileActivity: UserModifyActivity() {
 
         mLocationButton = findViewById(R.id.change_location)
         mLocationButton.setOnClickListener{
-            startLocationActivity(PLACE_PICKER_REQUEST)
+            startLocationActivity(this)
         }
 
 
         mPictureProfile = findViewById(R.id.profile_pic_view)
         mPictureProfile.setOnClickListener{
-            openGallery(this, PICK_IMAGE)
+            openGallery(this)
         }
 
         mChangePasswordButton = findViewById(R.id.change_password)
