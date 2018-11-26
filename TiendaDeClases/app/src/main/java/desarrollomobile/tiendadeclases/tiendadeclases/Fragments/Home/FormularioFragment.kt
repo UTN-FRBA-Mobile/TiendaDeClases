@@ -38,6 +38,8 @@ class FormularioFragment : Fragment(){
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var subCategoria: String? = null
+
 //    private var listener: ClassesFragment.OnListFragmentInteractionListener? = null
 
     private var locationManager : LocationManager? = null
@@ -54,20 +56,26 @@ class FormularioFragment : Fragment(){
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-
-
+            
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        editCategoria.setText(FormActivity().getSubCategoria(), TextView.BufferType.EDITABLE)
+
+        this.subCategoria = this.arguments!!.getString("NAME_KEY")!!.toString()
+
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_formulario, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        editCategoria.setText(this.subCategoria, TextView.BufferType.EDITABLE)
+
         cbUbicacionActual.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 try {
