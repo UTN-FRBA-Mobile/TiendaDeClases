@@ -29,7 +29,7 @@ abstract class UserModifyActivity: AppCompatActivity() {
 
         val dialog = DatePickerDialog(
                 this,
-                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                android.R.style.Theme_Material_Dialog_MinWidth,
                 dateSetListener,
                 year, month, day)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -37,10 +37,10 @@ abstract class UserModifyActivity: AppCompatActivity() {
     }
 
     fun dateModelate(year: Int, month: Int, day: Int, displayDate: TextView?) {
-        var month = month
-        month += 1
+        var nextMonth = month
+        nextMonth += 1
 
-        val date = month.toString() + "/" + day + "/" + year
+        val date = nextMonth.toString() + "/" + day + "/" + year
         displayDate?.text = date
     }
 
@@ -74,9 +74,9 @@ abstract class UserModifyActivity: AppCompatActivity() {
     }
 
     fun hasPermissions(context: Context?, vararg permissions: String): Boolean {
-        if (context != null && permissions != null) {
+        if (context != null) {
             for (permission in permissions) {
-                if (ActivityCompat.checkSelfPermission(context!!, permission) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
                     return false
                 }
             }
