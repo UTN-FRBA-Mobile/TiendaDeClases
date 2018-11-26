@@ -34,9 +34,6 @@ class ProfileActivity: UserModifyActivity() {
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
 
-    private val PLACE_PICKER_REQUEST = 1
-    private val PICK_IMAGE = 100
-
     private lateinit var mPictureProfile: ImageView
     private var imageUri: Uri? = null
     private var bitmap: Bitmap? = null
@@ -62,13 +59,13 @@ class ProfileActivity: UserModifyActivity() {
 
         mLocationButton = findViewById(R.id.change_location)
         mLocationButton.setOnClickListener{
-            startLocationActivity(PLACE_PICKER_REQUEST)
+            startLocationActivity(this)
         }
 
 
         mPictureProfile = findViewById(R.id.profile_pic_view)
         mPictureProfile.setOnClickListener{
-            openGallery(PICK_IMAGE)
+            openGallery(this)
         }
 
         mChangePasswordButton = findViewById(R.id.change_password)
@@ -91,7 +88,7 @@ class ProfileActivity: UserModifyActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
+        if (requestCode == PICK_LOCATION && resultCode == Activity.RESULT_OK) {
             mPlace = PlacePicker.getPlace(this, data).latLng
             val locationLabel =  findViewById<TextView>(R.id.user_location)
             locationLabel.text = mPlace.toString()
