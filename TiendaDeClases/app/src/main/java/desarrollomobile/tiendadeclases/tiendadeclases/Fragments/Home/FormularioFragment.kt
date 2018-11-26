@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.FormActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.fragment_formulario.*
 import kotlin.properties.Delegates
@@ -53,11 +54,14 @@ class FormularioFragment : Fragment(){
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+
+
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        editCategoria.setText(FormActivity().getSubCategoria(), TextView.BufferType.EDITABLE)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_formulario, container, false)
     }

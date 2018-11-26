@@ -47,9 +47,10 @@
         android:textColor="@android:color/black" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editCategoria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:editable="true"
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"

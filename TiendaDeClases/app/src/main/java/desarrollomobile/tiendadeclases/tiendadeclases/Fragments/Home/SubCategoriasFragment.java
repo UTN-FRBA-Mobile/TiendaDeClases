@@ -1,6 +1,7 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.FormActivity;
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.CategoriaListener;
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.CategoriasAdapter;
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.SubCategoriaListener;
@@ -112,7 +114,10 @@ public class SubCategoriasFragment extends Fragment implements SubCategoriaListe
 
     @Override
     public void onItemClick(String nombreSubcat) {
-        Toast.makeText(getContext(), nombreSubcat, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), nombreSubcat, Toast.LENGTH_SHORT).show();
+        Intent myIntent = new Intent(getContext(), FormActivity.class);
+        myIntent.putExtra("subcategoria", nombreSubcat);
+        startActivity(myIntent);
     }
 
 }
