@@ -6,11 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Categoria implements Parcelable {
-
+public class SubCategorias implements Parcelable {
     @SerializedName("imagen")
     @Expose
     private String imagen;
@@ -20,10 +16,6 @@ public class Categoria implements Parcelable {
     @SerializedName("subCats")
     @Expose
     private String subCats;
-    @SerializedName("objSubCats")
-    @Expose
-    private ArrayList<SubCategorias> listaSubCategorias;
-
 
     public String getImagen() {
         return imagen;
@@ -49,14 +41,6 @@ public class Categoria implements Parcelable {
         this.subCats = subCats;
     }
 
-    public ArrayList<SubCategorias> getListaSubCategorias() {
-        return listaSubCategorias;
-    }
-
-    public void setListaSubCategorias(ArrayList<SubCategorias> listaSubCategorias) {
-        this.listaSubCategorias = listaSubCategorias;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -67,28 +51,26 @@ public class Categoria implements Parcelable {
         dest.writeString(this.imagen);
         dest.writeString(this.nombre);
         dest.writeString(this.subCats);
-        dest.writeTypedList(this.listaSubCategorias);
     }
 
-    public Categoria() {
+    public SubCategorias() {
     }
 
-    protected Categoria(Parcel in) {
+    protected SubCategorias(Parcel in) {
         this.imagen = in.readString();
         this.nombre = in.readString();
         this.subCats = in.readString();
-        this.listaSubCategorias = in.createTypedArrayList(SubCategorias.CREATOR);
     }
 
-    public static final Parcelable.Creator<Categoria> CREATOR = new Parcelable.Creator<Categoria>() {
+    public static final Parcelable.Creator<SubCategorias> CREATOR = new Parcelable.Creator<SubCategorias>() {
         @Override
-        public Categoria createFromParcel(Parcel source) {
-            return new Categoria(source);
+        public SubCategorias createFromParcel(Parcel source) {
+            return new SubCategorias(source);
         }
 
         @Override
-        public Categoria[] newArray(int size) {
-            return new Categoria[size];
+        public SubCategorias[] newArray(int size) {
+            return new SubCategorias[size];
         }
     };
 }
