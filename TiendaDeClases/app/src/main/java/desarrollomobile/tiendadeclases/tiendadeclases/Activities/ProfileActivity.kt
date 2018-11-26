@@ -68,7 +68,7 @@ class ProfileActivity: UserModifyActivity() {
 
         mPictureProfile = findViewById(R.id.profile_pic_view)
         mPictureProfile.setOnClickListener{
-            openGallery(PICK_IMAGE)
+            openGallery(this, PICK_IMAGE)
         }
 
         mChangePasswordButton = findViewById(R.id.change_password)

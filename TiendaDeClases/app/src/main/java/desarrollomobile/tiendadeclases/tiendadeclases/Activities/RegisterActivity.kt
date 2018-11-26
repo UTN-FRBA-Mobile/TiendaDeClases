@@ -27,12 +27,10 @@ import java.util.*
 class RegisterActivity: UserModifyActivity() {
 
     private val TAG = "RegisterFragment"
-    private val PICK_IMAGE = 100
     private var mDisplayDate: TextView? = null
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
     private lateinit var mLocationButton: Button
     private var mRegisterButton: Button? = null
-    private val PLACE_PICKER_REQUEST = 1
     private lateinit var mPreferencesManager: PreferencesManager
     private lateinit var mPictureProfile: ImageView
     private var imageUri: Uri? = null
@@ -56,12 +54,12 @@ class RegisterActivity: UserModifyActivity() {
 
         mLocationButton = findViewById(R.id.add_location)
         mLocationButton.setOnClickListener{
-            startLocationActivity(PLACE_PICKER_REQUEST)
+            startLocationActivity(this)
         }
 
         mPictureProfile = findViewById(R.id.profile_pic_view)
         mPictureProfile.setOnClickListener{
-            openGallery(PICK_IMAGE)
+            openGallery(this)
         }
 
         mRegisterButton = findViewById(R.id.register_button)
@@ -90,13 +88,13 @@ class RegisterActivity: UserModifyActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
+        if (requestCode == PICK_LOCATION && resultCode == Activity.RESULT_OK) {
             mPlace = PlacePicker.getPlace(this, data).latLng
             val locationLabel =  findViewById<TextView>(R.id.user_location)
 
             locationLabel.text = mPlace.toString()
         }
-        if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+        if(requestCode == PICK_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             imageUri = data!!.data
             mPictureProfile.setImageURI(imageUri)
             bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
