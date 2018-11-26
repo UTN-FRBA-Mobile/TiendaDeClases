@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.CategoriaListener;
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.CategoriasAdapter;
+import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.SubCategoriaListener;
+import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.SubCategoriasAdapter;
 import desarrollomobile.tiendadeclases.tiendadeclases.ApiClient;
 import desarrollomobile.tiendadeclases.tiendadeclases.R;
-import desarrollomobile.tiendadeclases.tiendadeclases.Service.Categoria;
+import desarrollomobile.tiendadeclases.tiendadeclases.Service.SubCategorias;
 import desarrollomobile.tiendadeclases.tiendadeclases.Service.CategoriasClient;
 import desarrollomobile.tiendadeclases.tiendadeclases.Service.ListaDeCategorias;
 
@@ -31,7 +33,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoriasFragment extends Fragment implements CategoriaListener {
+public class SubCategoriasFragment extends Fragment implements SubCategoriaListener {
 
     /*
     Declarar instancias globales
@@ -39,10 +41,10 @@ public class CategoriasFragment extends Fragment implements CategoriaListener {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
-    private ImageView imagenCat;
-    private TextView nombreUsuario, subCat1;
+    private ImageView imagenSubCat;
+    private TextView nombreSubCat, subSubCat;
 
-    public CategoriasFragment() {
+    public SubCategoriasFragment() {
         // Required empty public constructor
     }
 
@@ -51,10 +53,10 @@ public class CategoriasFragment extends Fragment implements CategoriaListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflar el layout para este fragmento
-        View view = inflater.inflate(R.layout.fragment_categorias, container, false);
+        View view = inflater.inflate(R.layout.fragment_subcategorias, container, false);
         //inicializarVistas(view);
         // Obtener el Recycler
-        recycler = (RecyclerView) view.findViewById(R.id.CatsRecycler);
+        recycler = (RecyclerView) view.findViewById(R.id.SubCatsRecycler);
         recycler.setHasFixedSize(true);
         // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(getActivity());
@@ -64,12 +66,23 @@ public class CategoriasFragment extends Fragment implements CategoriaListener {
     }
 
     private void inicializarVistas(View view) {
-        imagenCat = view.findViewById(R.id.ivCategoria);
-        nombreUsuario = view.findViewById(R.id.tvCategoria);
-        subCat1 = view.findViewById(R.id.tvSubCategoria1);
+        imagenSubCat = view.findViewById(R.id.ivCategoria);
+        nombreSubCat = view.findViewById(R.id.tvCategoria);
+        subSubCat = view.findViewById(R.id.tvSubCategoria1);
     }
 
     private void obtenerCategorias() {
+
+        Bundle bundle = this.getArguments();
+        ArrayList<SubCategorias> subCatsList = bundle.getParcelableArrayList("subCategorias");
+
+        if (subCatsList != null) {
+            mostrarCategorias(subCatsList);
+        } else {
+            Toast.makeText(getActivity(), "Falló la conexión, por favor intentá de nuevo", Toast.LENGTH_SHORT).show();
+        }
+
+        /*
         CategoriasClient client = ApiClient.getInstance().getClient().create(CategoriasClient.class);
         Call<ListaDeCategorias> call = client.getCategorias();
         call.enqueue(new Callback<ListaDeCategorias>() {
@@ -87,39 +100,19 @@ public class CategoriasFragment extends Fragment implements CategoriaListener {
 
             }
         });
+        */
     }
 
 
-    private void mostrarCategorias(List<Categoria> lista) {
+    private void mostrarCategorias(ArrayList<SubCategorias> lista) {
         // Crear un nuevo adaptador
-        adapter = new CategoriasAdapter(lista, CategoriasFragment.this);
+        adapter = new SubCategoriasAdapter(lista, SubCategoriasFragment.this);
         recycler.setAdapter(adapter);
-
-
-        /*nombreUsuario.setText(lista.get(0).getNombre());
-        subCat1.setText(lista.get(0).getSubCats());
-        Picasso.get()
-                .load("http://www.tiendadeclases.com/wp-content/uploads/2018/08/bannertdc8.jpg")
-                .resize(150, 150)
-                .into(imagenCat);
-*/
     }
 
     @Override
-    public void onItemClick(ArrayList<SubCategorias> subcat) {
-        Bundle args = new Bundle();
-        args.putParcelableArrayList("subCategorias", subcat);
-        SubCategoriasFragment SubCats = new SubCategoriasFragment ();
-        SubCats.setArguments(args);
-
-        getActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.HomeFrame, SubCats)
-                .commit();
-
-
-
-        //Toast.makeText(getContext(), subcat.get(0).getNombre(), Toast.LENGTH_SHORT).show();
+    public void onItemClick(String nombreSubcat) {
+        Toast.makeText(getContext(), nombreSubcat, Toast.LENGTH_SHORT).show();
     }
+
 }
