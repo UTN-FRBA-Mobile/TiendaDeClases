@@ -22,6 +22,14 @@
         <activity
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home"></activity>
+        <activity
+            android:name=".Activities.OnBoardingActivity"
+            android:label="OnBoardingActivity"></activity>
+        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.UpdatePasswordActivity" />
+        <activity android:name=".Activities.UserModifyActivity" />
 
         <service android:name=".Services.MyFirebaseMessagingService">
             <intent-filter>
@@ -33,6 +41,9 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDN6MO3nmEbPJrtChYBsxinKucNOG11qTI"/>
     </application>
 
 </manifest>

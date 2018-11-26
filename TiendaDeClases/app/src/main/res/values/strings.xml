@@ -1,26 +1,68 @@
 <resources>
     <string name="app_name">TiendaDeClases</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="title">Tienda De Clases</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Tutorial -->
     <string name="tutorial1_text">Bienvenido a la aplicación oficial de TiendaDeClases!</string>
     <string name="tutorial1_text2">Seguí estos pasos para empezar a tomar clases:</string>
     <string name="tutorial2_text">Creá tu cuenta</string>
     <string name="tutorial3_text">Agregá los temas que te interesen</string>
     <string name="tutorial4_text">Contactá directamente con un profesor y empezá!</string>
-    <string name="tutorial4_button">Empezar</string>
+    <string name="tutorial4_button">Ya tengo cuenta</string>
+    <string name="tutorial5_button">Registrar</string>
+    <string name="tutorial6_button">Continuar como invitado</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Login -->
     <string name="login_usuario">Nombre de usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_ingresar">Ingresar</string>
+
+    <!-- Pantalla principal -->
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_categories">Categorías</string>
     <string name="title_classes">Mis clases</string>
+    <string name="menu_profile">Ver Perfil</string>
+    <string name="menu_logout">Salir</string>
     <string name="title_messages">Mensajes</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Classes -->
+    <string name="classes_datePriceSeparator">" - "</string>
+    <string name="classes_payButton">"Pagar"</string>
+    <string name="classes_scheduleButton">"Agendar"</string>
+
+    <!-- Perfil -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_signin">Ingresar</string>
+    <string name="menu_sinup">Registrarse</string>
+    <string name="new_password">Nueva Contraseña</string>
+    <string name="old_password">Vieja Contraseña</string>
+    <string name="repeat_new_password">Repetir nueva contraseña</string>
+    <string name="change_password">Cambiar Contraseña</string>
+    <string name="update_password_button">Actualizar Contraseña</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="birthday">Fecha de nacimiento</string>
+    <string name="selected_date">Dia seleccionado</string>
+    <string name="change_location">Cambiar ubicacion</string>
+    <string name="save_changes">Guardar Cambios</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="add_location">Agregar Ubicacion</string>
+    <string name="register">Registrar</string>
+    <string name="skip">Omitir</string>
+    <string name="next">Siguiente</string>
+
+
+
+
+    <string name="successfuly_updated_password">Contraseña Actualizada</string>
+    <string name="wrong_old_password">La contraseña vieja es incorrecta</string>
+    <string name="wrong_repeated_password">Las contraseñas deben coincidir</string>
+
+    <string name="wrong_login">Ingreso incorrecto, verifuqe los campos</string>
+    <string name="successfuly_updated_user">Usuario modificado exitosamente</string>
+
+    <string name="username_already_exist">El nombre de usuario ya esta en uso. Seleccione otro</string>
+    <string name="fill_obligatory_fields">Por favor complete los datos obligatorios: Nombre de usuario, contraseña y ubicacion</string>
 </resources>

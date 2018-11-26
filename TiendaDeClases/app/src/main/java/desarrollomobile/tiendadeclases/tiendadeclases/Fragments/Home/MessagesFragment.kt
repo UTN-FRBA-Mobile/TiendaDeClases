@@ -1,42 +1,28 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
+import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesAdapter
+import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesApi
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import io.reactivex.disposables.Disposable
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [MessagesFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [MessagesFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class MessagesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: MessagesFragment.OnListFragmentInteractionListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    val messagesApi by lazy {
+        MessagesApi.create()
     }
+
+    var disposable: Disposable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,17 +30,32 @@ class MessagesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_messages, container, false)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val homeActivity = this.activity as HomeActivity
+        // Set the adapter
+        if (view is RecyclerView) {
+            with(view) {
+                var messagesAdapter = MessagesAdapter(listener)
+                layoutManager = LinearLayoutManager(context)
+                adapter = messagesAdapter
+                messagesAdapter.items = homeActivity.messagesList
+                messagesAdapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        disposable?.dispose()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is OnListFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
         }
     }
 
@@ -74,28 +75,13 @@ class MessagesFragment : Fragment() {
      * (http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+
+    interface OnListFragmentInteractionListener {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MessagesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                MessagesFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+        fun newInstance() =
+                MessagesFragment()
     }
 }
