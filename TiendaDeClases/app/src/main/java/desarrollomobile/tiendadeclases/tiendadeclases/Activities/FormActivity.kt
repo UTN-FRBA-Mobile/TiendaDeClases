@@ -1,10 +1,13 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Activities
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.FormularioFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
+import java.security.AccessController.getContext
 
 class FormActivity : AppCompatActivity() {
     private final var subCategoria : String ?= null ;
@@ -29,4 +32,5 @@ class FormActivity : AppCompatActivity() {
     public final fun getSubCategoria(): String? {
         return this.subCategoria;
     }
+
 }
