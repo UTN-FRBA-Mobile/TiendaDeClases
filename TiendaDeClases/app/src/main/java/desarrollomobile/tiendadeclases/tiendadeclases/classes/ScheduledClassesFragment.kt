@@ -16,6 +16,7 @@ import desarrollomobile.tiendadeclases.tiendadeclases.R
 class ScheduledClassesFragment : Fragment() {
 
     private var listener: ClassesFragment.OnListFragmentInteractionListener? = null
+    private var adaptador = ScheduledClassesAdapter(listener)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,13 +25,17 @@ class ScheduledClassesFragment : Fragment() {
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
-                val classesAdapter = ScheduledClassesAdapter(listener)
                 layoutManager = LinearLayoutManager(context)
-                adapter = classesAdapter
-                classesAdapter.items = homeActivity.classesList.filter { c -> c.status.equals(3) }
-                classesAdapter.notifyDataSetChanged()
+                adapter = adaptador
+                adaptador.items = homeActivity.scheduledClassesList
+                adaptador.notifyDataSetChanged()
             }
         }
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        adaptador.notifyDataSetChanged()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

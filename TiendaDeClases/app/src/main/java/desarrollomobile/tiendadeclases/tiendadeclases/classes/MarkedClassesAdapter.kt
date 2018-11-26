@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.class_marked.view.*
@@ -37,5 +40,19 @@ class MarkedClassesAdapter(private val mListener: ClassesFragment.OnListFragment
         val description: TextView = mView.markedClassDescription
         val date: TextView = mView.markedClassDate
         val price: TextView = mView.markedClassPrice
+
+        init {
+            val payButton: Button = mView.payButton
+            payButton.setOnClickListener { v -> payClass(v) }
+        }
+
+        fun payClass(v: View) {
+            val activity = v.context as HomeActivity
+            var item = activity.markedClassesList.removeAt(adapterPosition)
+            item.status = 2
+            activity.payedClassesList.add(item)
+            notifyDataSetChanged()
+            Toast.makeText(v.context, "Clase pagada exitosamente", Toast.LENGTH_SHORT).show()
+        }
     }
 }

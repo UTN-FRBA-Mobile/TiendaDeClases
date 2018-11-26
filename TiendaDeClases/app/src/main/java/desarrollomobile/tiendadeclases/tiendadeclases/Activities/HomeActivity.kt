@@ -25,6 +25,9 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
     lateinit var mPreferencesManager: PreferencesManager
 
     var classesList: MutableList<Class> = ArrayList<Class>()
+    var markedClassesList: MutableList<Class> = ArrayList<Class>()
+    var payedClassesList: MutableList<Class> = ArrayList<Class>()
+    var scheduledClassesList: MutableList<Class> = ArrayList<Class>()
     var messagesList: MutableList<Message> = ArrayList<Message>()
     var messagesClassesList: MutableList<Class> = ArrayList<Class>()
 
@@ -66,6 +69,9 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
                 .subscribe(
                         { result ->
                             classesList = result.classes
+                            markedClassesList = classesList.filter{c -> c.status == 1}.toMutableList()
+                            payedClassesList = classesList.filter{c -> c.status == 2}.toMutableList()
+                            scheduledClassesList = classesList.filter{c -> c.status == 3}.toMutableList()
                         },
                         { error ->
                             Toast.makeText(this, "No se encontraron clases! " + error, Toast.LENGTH_LONG).show()
