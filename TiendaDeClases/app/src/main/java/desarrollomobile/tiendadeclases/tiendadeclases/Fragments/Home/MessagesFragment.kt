@@ -18,6 +18,7 @@ import io.reactivex.disposables.Disposable
 class MessagesFragment : Fragment() {
     private var listener: MessagesFragment.OnListFragmentInteractionListener? = null
 
+    private val TAG = "Messages"
     val messagesApi by lazy {
         MessagesApi.create()
     }

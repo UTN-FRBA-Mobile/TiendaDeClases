@@ -2,8 +2,10 @@ package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +46,18 @@ class MessageFragment : Fragment() {
                 classesAdapter.notifyDataSetChanged()
             }
         }
+
+
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                fragmentManager!!.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                return@OnKeyListener true
+            }
+            false
+        })
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

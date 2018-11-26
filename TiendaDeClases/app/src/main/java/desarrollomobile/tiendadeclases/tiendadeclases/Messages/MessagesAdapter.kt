@@ -51,7 +51,7 @@ class MessagesAdapter(private val mListener: MessagesFragment.OnListFragmentInte
             message.setRead(true)
             val activity = view.getContext() as HomeActivity
             activity.messagesClassesList = message.getClasses()
-            activity.supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, MessageFragment()).commit()
+            activity.supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, MessageFragment()).addToBackStack("Messages").commit()
         }
 
     }
