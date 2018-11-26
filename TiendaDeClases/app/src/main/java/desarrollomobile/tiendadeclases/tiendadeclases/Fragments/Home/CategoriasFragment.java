@@ -116,6 +116,7 @@ public class CategoriasFragment extends Fragment implements CategoriaListener {
                 .getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.HomeFrame, SubCats)
+                .addToBackStack("Categories")
                 .commit();
 
 
