@@ -16,18 +16,19 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Service.SubCategorias;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.CategoriasViewHolder>  {
-    private final CategoriaListener listener;
-    private List<Categoria> items;
+public class SubCategoriasAdapter extends RecyclerView.Adapter<SubCategoriasAdapter.SubCategoriasViewHolder>  {
+    private final SubCategoriaListener listener;
+    private ArrayList<SubCategorias> items;
+    //private String nombreSubCat;
 
 
-    public static class CategoriasViewHolder extends RecyclerView.ViewHolder {
+    public static class SubCategoriasViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
         public ImageView imagen;
         public TextView nombre;
         public TextView subCats;
 
-        public CategoriasViewHolder(View v) {
+        public SubCategoriasViewHolder(View v) {
             super(v);
             imagen = (ImageView) v.findViewById(R.id.ivCategoria);
             nombre = (TextView) v.findViewById(R.id.tvCategoria);
@@ -35,7 +36,7 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
         }
     }
 
-    public CategoriasAdapter(List<Categoria> items, CategoriaListener listener) {
+    public SubCategoriasAdapter(ArrayList<SubCategorias> items, SubCategoriaListener listener) {
         this.items = items;
         this.listener = listener;
 
@@ -47,16 +48,17 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
     }
 
     @Override
-    public CategoriasViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public SubCategoriasViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.cat_item, viewGroup, false);
-        return new CategoriasViewHolder(view);
+        return new SubCategoriasViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(CategoriasViewHolder viewHolder, int i) {
+    public void onBindViewHolder(SubCategoriasViewHolder viewHolder, int i) {
         //viewHolder.imagen.setImageResource(items.get(i).getImagen());
-        final ArrayList<SubCategorias> subcat = items.get(i).getListaSubCategorias();
+        //final ArrayList<SubCategorias> subcat = items.get(i).getListaSubCategorias();
+        final String nombreSubCat = items.get(i).getNombre();
         Picasso.get()
                 .load(items.get(i).getImagen())
                 .resize(150, 150)
@@ -66,7 +68,7 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClick(subcat);
+                listener.onItemClick(nombreSubCat);
             }
         });
     }
