@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.FormActivity
@@ -109,6 +110,79 @@ class FormularioFragment : Fragment(){
                 }
             }
         }
+
+            checkLunes.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked){
+                    lunesDesde.isEnabled=true
+                    lunesHasta.isEnabled=true
+                }
+                else {
+                    lunesDesde.isEnabled=false
+                    lunesHasta.isEnabled=false
+                    lunesDesde.text.clear()
+                    lunesHasta.text.clear()
+                }
+            }
+            checkMartes.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked){
+                    martesDesde.isEnabled=true
+                    martesHasta.isEnabled=true
+                }
+                else {
+                    martesDesde.isEnabled=false
+                    martesHasta.isEnabled=false
+                    martesDesde.text.clear()
+                    martesHasta.text.clear()
+                }
+            }
+            checkMiercoles.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked){
+                    miercolesDesde.isEnabled=true
+                    miercolesHasta.isEnabled=true
+                }
+                else {
+                    miercolesDesde.isEnabled=false
+                    miercolesHasta.isEnabled=false
+                    miercolesDesde.text.clear()
+                    miercolesHasta.text.clear()
+                }
+            }
+            checkJueves.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked){
+                    juevesDesde.isEnabled=true
+                    juevesHasta.isEnabled=true
+                }
+                else {
+                    juevesDesde.isEnabled=false
+                    juevesHasta.isEnabled=false
+                    juevesDesde.text.clear()
+                    juevesHasta.text.clear()
+                }
+            }
+            checkViernes.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked){
+                    viernesDesde.isEnabled=true
+                    viernesHasta.isEnabled=true
+                }
+                else {
+                    viernesDesde.isEnabled=false
+                    viernesHasta.isEnabled=false
+                    viernesDesde.text.clear()
+                    viernesHasta.text.clear()
+                }
+            }
+            checkSabado.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked){
+                    sabadoDesde.isEnabled=true
+                    sabadoHasta.isEnabled=true
+                }
+                else {
+                    sabadoDesde.isEnabled=false
+                    sabadoHasta.isEnabled=false
+                    sabadoDesde.text.clear()
+                    sabadoHasta.text.clear()
+                }
+            }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

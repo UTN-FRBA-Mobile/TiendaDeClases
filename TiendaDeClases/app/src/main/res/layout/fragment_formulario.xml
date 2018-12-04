@@ -52,7 +52,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_columnWeight="25%"
         tools:context=".Fragments.Home.DisponibilidadFragment">
 
         <!-- TODO: Update blank fragment layout -->
@@ -103,6 +102,7 @@
                 android:layout_width="63dp"
                 android:layout_height="match_parent"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -111,6 +111,7 @@
                 android:layout_width="63dp"
                 android:layout_height="match_parent"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -137,6 +138,7 @@
                 android:layout_width="68dp"
                 android:layout_height="match_parent"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -145,6 +147,7 @@
                 android:layout_width="68dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -171,6 +174,7 @@
                 android:layout_width="47dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -179,6 +183,7 @@
                 android:layout_width="47dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -205,6 +210,7 @@
                 android:layout_width="33dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -213,6 +219,7 @@
                 android:layout_width="33dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -239,6 +246,7 @@
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -247,6 +255,7 @@
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -273,6 +282,7 @@
                 android:layout_width="18dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
@@ -281,6 +291,7 @@
                 android:layout_width="18dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="number"
                 android:textAlignment="center" />
 
