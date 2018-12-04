@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_columnWeight="25%"
+    tools:context=".Fragments.Home.DisponibilidadFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:text="Dia"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="Hora desde"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:text="Hora hasta"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Lunes"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/lunesDesde"
+            android:layout_width="63dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/lunesHasta"
+            android:layout_width="63dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <CheckBox
+            android:id="@+id/checkLunes"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Martes"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/martesDesde"
+            android:layout_width="68dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/martesHasta"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <CheckBox
+            android:id="@+id/checkMartes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Miercoles"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/miercolesDesde"
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/miercolesHasta"
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <CheckBox
+            android:id="@+id/checkMiercoles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jueves"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/juevesDesde"
+            android:layout_width="33dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/juevesHasta"
+            android:layout_width="33dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <CheckBox
+            android:id="@+id/checkJueves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Viernes"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/viernesDesde"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/viernesHasta"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <CheckBox
+            android:id="@+id/checkViernes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="34dp">
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sabado"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/sabadoDesde"
+            android:layout_width="18dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/sabadoHasta"
+            android:layout_width="18dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <CheckBox
+            android:id="@+id/checkSabado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/buttonAceptar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_span="4"
+            android:text="Aceptar" />
+    </TableRow>
+</TableLayout>
