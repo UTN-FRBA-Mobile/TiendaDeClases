@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:lines="4"
-            android:text="Necesitas estar logeado para acceder a la funcionalidad"
+            android:text="@string/require_login_label"
             android:textColor="@android:color/white"
             android:textSize="40sp"
             tools:layout_editor_absoluteX="0dp"
