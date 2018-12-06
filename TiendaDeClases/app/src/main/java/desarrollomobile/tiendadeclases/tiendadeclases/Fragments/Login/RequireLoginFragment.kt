@@ -10,22 +10,12 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasF
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 
-abstract class RequireLoginFragment: Fragment() {
-
-    private lateinit var activityToPresent: Activity
+class RequireLoginFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        val pm = PreferencesManager(activity!!)
-
-        if (pm.getStringPreference("userName") != "") {
-            return viewToInflate(inflater, container, savedInstanceState)
-        } else {
-            return inflater.inflate(R.layout.fragment_required_log_in, container, false)
-        }
+        return inflater.inflate(R.layout.fragment_required_log_in, container, false)
     }
-
-    abstract fun viewToInflate(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
 }

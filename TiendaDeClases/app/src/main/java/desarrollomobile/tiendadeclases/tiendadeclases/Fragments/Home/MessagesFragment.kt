@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.RequireLoginFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesAdapter
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesApi
 import desarrollomobile.tiendadeclases.tiendadeclases.R

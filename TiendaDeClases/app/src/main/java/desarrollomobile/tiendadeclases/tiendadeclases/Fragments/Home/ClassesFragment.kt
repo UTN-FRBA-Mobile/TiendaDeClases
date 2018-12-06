@@ -14,7 +14,7 @@ import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
 
 
-class ClassesFragment : RequireLoginFragment() {
+class ClassesFragment : Fragment() {
 
     private var listener: OnListFragmentInteractionListener? = null
 
@@ -34,7 +34,7 @@ class ClassesFragment : RequireLoginFragment() {
         }
     }
 
-    override fun viewToInflate(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.classes_tabs, container, false)
 
         viewPager = view.findViewById(R.id.viewpager)

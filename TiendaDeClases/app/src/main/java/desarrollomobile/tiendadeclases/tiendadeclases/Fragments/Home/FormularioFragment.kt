@@ -19,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.FormActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.RequireLoginFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.fragment_formulario.*
 import kotlin.properties.Delegates
