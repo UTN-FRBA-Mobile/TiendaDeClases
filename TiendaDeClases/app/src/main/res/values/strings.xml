@@ -53,6 +53,7 @@
     <string name="skip">Omitir</string>
     <string name="next">Siguiente</string>
 
+    <string name="set_location">Establecer ubicacion</string>
 
     <string name="successfuly_updated_password">Contraseña Actualizada</string>
     <string name="wrong_old_password">La contraseña vieja es incorrecta</string>
