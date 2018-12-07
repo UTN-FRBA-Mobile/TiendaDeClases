@@ -1,5 +1,6 @@
 package desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -18,11 +19,15 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.gms.location.places.ui.PlacePicker
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.FormActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.Activities.HomeActivity
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import kotlinx.android.synthetic.main.fragment_formulario.*
 import kotlin.properties.Delegates
+import android.app.Activity
+import android.provider.MediaStore
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +50,7 @@ class FormularioFragment : Fragment(){
     private var subCategoria: String? = null
 
 //    private var listener: ClassesFragment.OnListFragmentInteractionListener? = null
-
+    /*
     private var locationManager : LocationManager? = null
     var deschequear: Boolean by Delegates.observable(false) {
         prop, old, new ->
@@ -54,13 +59,13 @@ class FormularioFragment : Fragment(){
                 deschequear = false
             }
     }
+    */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-            
         }
     }
 
@@ -92,6 +97,7 @@ class FormularioFragment : Fragment(){
 
                 }
             })
+        /*
         cbUbicacionActual.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 try {
@@ -110,7 +116,7 @@ class FormularioFragment : Fragment(){
                 }
             }
         }
-
+        */
             checkLunes.setOnCheckedChangeListener { buttonView, isChecked ->
                 if(isChecked){
                     lunesDesde.isEnabled=true
@@ -183,8 +189,13 @@ class FormularioFragment : Fragment(){
                     sabadoHasta.text.clear()
                 }
             }
+
+            change_location.setOnClickListener {
+                startLocationActivity(context!!)
+            }
     }
 
+    /*
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         try {
@@ -198,6 +209,7 @@ class FormularioFragment : Fragment(){
             Log.d("myTag", "Security Exception, no location available");
         }
     }
+    */
 
     // TODO: Rename method, update argument and hook method into UI event
   //  fun onButtonPressed(uri: Uri) {
@@ -212,7 +224,7 @@ class FormularioFragment : Fragment(){
       //  } else {
        //     throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
        // }
-        locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
+        //locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
         contexto = context
     }
 
@@ -259,6 +271,56 @@ class FormularioFragment : Fragment(){
 
     var latitude : Double ?= null
     var longitude : Double ?= null
+
+    val PICK_LOCATION = 1
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PICK_LOCATION && resultCode == Activity.RESULT_OK) {
+            var selected = PlacePicker.getPlace(contexto, data).latLng
+            latitude = selected.latitude
+            longitude = selected.longitude
+            editLatitud.setText(latitude.toString(), TextView.BufferType.EDITABLE)
+            editLongitud.setText(longitude.toString(),TextView.BufferType.EDITABLE)
+        }
+    }
+
+    fun startLocationActivity(context: Context) {
+        if (hasPermissions(context, Manifest.permission.ACCESS_COARSE_LOCATION) && hasPermissions(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            val builder = PlacePicker.IntentBuilder()
+            val intent = builder.build(getActivity())
+            startActivityForResult(intent, PICK_LOCATION)
+        } else {
+            //ActivityCompat.requestPermissions(getActivity()., arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), PICK_LOCATION);
+            try {
+                if (ActivityCompat.checkSelfPermission(context!!,
+                                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context!!,
+                                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(
+                            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION),
+                            100)
+                } else {
+                    val builder = PlacePicker.IntentBuilder()
+                    val intent = builder.build(getActivity())
+                    startActivityForResult(intent, PICK_LOCATION)
+                    Log.e("DB", "PERMISSION GRANTED")
+                }
+            } catch(ex: SecurityException) {
+                Log.d("myTag", "Security Exception, no location available");
+            }
+        }
+    }
+
+    fun hasPermissions(context: Context?, vararg permissions: String): Boolean {
+        if (context != null) {
+            for (permission in permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    /*
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             latitude = location.latitude
@@ -275,5 +337,5 @@ class FormularioFragment : Fragment(){
             Toast.makeText(contexto, "El GPS se debe encontrar encendido para poder utilzar la ubicacion actual", Toast.LENGTH_SHORT).show()
         }
     }
-
+    */
 }
