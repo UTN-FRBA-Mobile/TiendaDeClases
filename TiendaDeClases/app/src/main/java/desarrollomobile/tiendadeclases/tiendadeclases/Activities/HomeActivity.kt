@@ -14,7 +14,6 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.RequireLog
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.Message
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesApi
-import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Class
