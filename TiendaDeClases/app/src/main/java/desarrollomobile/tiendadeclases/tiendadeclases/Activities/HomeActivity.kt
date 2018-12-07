@@ -10,6 +10,8 @@ import android.widget.Toast
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.CategoriasFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.ClassesFragment
 import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Home.MessagesFragment
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.RequireLoginFragment
+import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.Message
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesApi
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
@@ -38,11 +40,19 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_classes -> {
-                supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, ClassesFragment()).commit()
+                if (isUserLoggedIn()) {
+                    supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, ClassesFragment()).commit()
+                } else {
+                    supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, RequireLoginFragment()).commit()
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_messages -> {
-                supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, MessagesFragment()).commit()
+                if (isUserLoggedIn()) {
+                    supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, MessagesFragment()).commit()
+                } else {
+                    supportFragmentManager.beginTransaction().replace(R.id.HomeFrame, RequireLoginFragment()).commit()
+                }
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -93,9 +103,7 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
-        val firstStart = mPreferencesManager.getStringPreference("userName")
-
-        if (firstStart != "") {
+        if(isUserLoggedIn()) {
             menuInflater.inflate(R.menu.profile, menu)
         } else {
             menuInflater.inflate(R.menu.not_signed, menu)
@@ -125,6 +133,10 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        return mPreferencesManager.getStringPreference("userName") != ""
     }
 
 }

@@ -21,6 +21,8 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.CategoriasAdapter
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.SubCategoriaListener;
 import desarrollomobile.tiendadeclases.tiendadeclases.Adapters.SubCategoriasAdapter;
 import desarrollomobile.tiendadeclases.tiendadeclases.ApiClient;
+import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.RequireLoginFragment;
+import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager;
 import desarrollomobile.tiendadeclases.tiendadeclases.R;
 import desarrollomobile.tiendadeclases.tiendadeclases.Service.SubCategorias;
 import desarrollomobile.tiendadeclases.tiendadeclases.Service.CategoriasClient;
@@ -131,11 +133,20 @@ public class SubCategoriasFragment extends Fragment implements SubCategoriaListe
 
     @Override
     public void onItemClick(String nombreSubcat) {
-        Intent myIntent = new Intent(getContext(), FormActivity.class);
 
-        myIntent.putExtra("subcategoria", nombreSubcat);
+        if (!(new PreferencesManager(getActivity()).getStringPreference("userName").equals(""))) {
+            Intent myIntent = new Intent(getContext(), FormActivity.class);
 
-        startActivity(myIntent);
+            myIntent.putExtra("subcategoria", nombreSubcat);
+
+            startActivity(myIntent);
+
+        } else {
+            RequireLoginFragment nextFrag= new RequireLoginFragment();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.HomeFrame, nextFrag)
+                    .commit();
+        }
     }
 
 }
