@@ -25,29 +25,39 @@ class LoginActivity: AppCompatActivity() {
         mPreferencesManager = PreferencesManager(this)
 
         val button = findViewById<Button>(R.id.button_login)
-        button.setOnClickListener{
+        button.setOnClickListener {
+            if (obligatoryFieldsNotNull()) {
+                val userRegistered = createLoginUser()
+                val response = UsersApiClient.getRetrofitClient().loginUser(userRegistered)
+                response.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { it ->
+                    if (it.status == 200) {
+                        mPreferencesManager.setStringPreference("userName", userRegistered.userName)
 
-            val userRegistered = createLoginUser()
-            val response = UsersApiClient.getRetrofitClient().loginUser(userRegistered)
-            response.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{it ->
-                if(it.status == 200) {
-                    mPreferencesManager.setStringPreference("userName", userRegistered.userName)
-
-                    val intent = Intent(this, HomeActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(this, this.getString(R.string.wrong_login), Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, HomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this, this.getString(R.string.wrong_login), Toast.LENGTH_LONG).show()
+                    }
                 }
+            } else {
+                Toast.makeText(this, "Por favor complete los datos obligatorios: Nombre de usuario y Contraseña", Toast.LENGTH_LONG).show()
+
             }
         }
+    }
+
+    private fun obligatoryFieldsNotNull(): Boolean {
+
+        return findViewById<EditText>(R.id.text_usuario).text.toString() != "" &&
+                findViewById<EditText>(R.id.text_contraseña).text.toString() != ""
     }
 
     fun createLoginUser(): User {
         val userName = findViewById<EditText>(R.id.text_usuario).text
         val password = findViewById<EditText>(R.id.text_contraseña).text
 
-        return User(userName.toString(), password.toString(), "", "", "", null, null)
+        return User(userName.toString(), password.toString(), "", "", "", null, null,  "")
     }
 }

@@ -42,6 +42,7 @@
     <string name="update_password_button">Actualizar Contraseña</string>
     <string name="first_name">Nombre</string>
     <string name="last_name">Apellido</string>
+    <string name="email">Email</string>
     <string name="birthday">Fecha de nacimiento</string>
     <string name="selected_date">Dia seleccionado</string>
     <string name="change_location">Cambiar ubicacion</string>

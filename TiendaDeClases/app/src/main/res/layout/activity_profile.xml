@@ -26,8 +26,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="453dp"
-        android:layout_below="@+id/user_username"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/user_username"
         android:layout_marginStart="0dp"
         android:layout_marginTop="45dp"
         android:orientation="vertical">
@@ -58,10 +58,23 @@
             android:ems="10"
             android:inputType="text|textPersonName" />
 
+        <TextView
+            android:id="@+id/user_email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text|textEmailAddress" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="145dp">
+            android:layout_height="107dp">
 
             <TextView
                 android:id="@+id/user_birthday_label"
@@ -78,10 +91,10 @@
                 android:id="@+id/user_birthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="7dp"
+                android:layout_alignParentTop="true"
                 android:layout_marginEnd="3dp"
+                android:layout_marginTop="7dp"
                 android:hint="@string/selected_date"
                 android:textAlignment="gravity"
                 android:textSize="15sp" />
@@ -90,20 +103,20 @@
                 android:id="@+id/change_location"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="35dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="39dp"
                 android:text="@string/change_location" />
 
             <TextView
                 android:id="@+id/user_location"
                 android:layout_width="158dp"
-                android:layout_height="77dp"
-                android:layout_alignStart="@+id/user_birthday"
+                android:layout_height="68dp"
                 android:layout_alignBottom="@+id/change_location"
-                android:layout_marginStart="-48dp"
-                android:layout_marginBottom="-30dp" />
+                android:layout_alignStart="@+id/user_birthday"
+                android:layout_marginBottom="-21dp"
+                android:layout_marginStart="-48dp" />
 
 
         </RelativeLayout>
@@ -113,18 +126,18 @@
             android:id="@+id/save_changes"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="41dp"
             android:layout_marginStart="68dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="41dp"
             android:text="@string/save_changes" />
 
         <Button
             android:id="@+id/change_password"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="41dp"
             android:layout_marginStart="68dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="41dp"
             android:text="@string/change_password" />
 
     </LinearLayout>

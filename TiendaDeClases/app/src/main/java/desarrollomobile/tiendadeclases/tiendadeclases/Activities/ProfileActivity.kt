@@ -109,6 +109,7 @@ class ProfileActivity: UserModifyActivity() {
             findViewById<TextView>(R.id.user_username).text = userName
             findViewById<TextView>(R.id.user_first_name).text = it.firstName
             findViewById<TextView>(R.id.user_last_name).text = it.lastName
+            findViewById<TextView>(R.id.user_email).text = it.email
             mDisplayDate!!.text = it.birthday
 
             if(it.position != null) {
@@ -126,8 +127,10 @@ class ProfileActivity: UserModifyActivity() {
 
     private fun getUserModified(): User {
         val userName = mPreferencesManager.getStringPreference("userName")
-        return User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(), findViewById<EditText>(R.id.user_last_name).text.toString()
-                , mDisplayDate!!.text.toString(), Position(mPlace.latitude, mPlace.longitude), imageToString(bitmap))
+        return User(userName, "", findViewById<EditText>(R.id.user_first_name).text.toString(),
+                findViewById<EditText>(R.id.user_last_name).text.toString(), mDisplayDate!!.text.toString(),
+                Position(mPlace.latitude, mPlace.longitude), imageToString(bitmap),
+                findViewById<EditText>(R.id.user_email).text.toString())
     }
 
 

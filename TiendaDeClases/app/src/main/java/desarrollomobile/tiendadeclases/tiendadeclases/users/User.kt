@@ -11,8 +11,9 @@ class User {
     @SerializedName("birthday") var birthday: String = ""
     @SerializedName("position") var position: Position?
     @SerializedName("profilePicture") var profilePicture: String? = null
+    @SerializedName("email") var email: String = ""
 
-    constructor(userName: String, password: String, firstName: String, lastName: String, birthday: String, position: Position?, profilePicture: String?) {
+    constructor(userName: String, password: String, firstName: String, lastName: String, birthday: String, position: Position?, profilePicture: String?, email: String) {
         this.userName = userName
         this.password = password
         this.firstName = firstName
@@ -20,6 +21,7 @@ class User {
         this.birthday = birthday
         this.position = position
         this.profilePicture = profilePicture
+        this.email = email
     }
 
 }
