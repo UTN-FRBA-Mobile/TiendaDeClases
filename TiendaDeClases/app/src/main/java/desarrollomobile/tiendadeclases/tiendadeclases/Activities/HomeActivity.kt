@@ -14,6 +14,7 @@ import desarrollomobile.tiendadeclases.tiendadeclases.Fragments.Login.RequireLog
 import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.Message
 import desarrollomobile.tiendadeclases.tiendadeclases.Messages.MessagesApi
+import desarrollomobile.tiendadeclases.tiendadeclases.Preferences.PreferencesManager
 import desarrollomobile.tiendadeclases.tiendadeclases.R
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Api
 import desarrollomobile.tiendadeclases.tiendadeclases.classes.Class
@@ -78,9 +79,9 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
                 .subscribe(
                         { result ->
                             classesList = result.classes
-                            markedClassesList = classesList.filter{c -> c.status == 1}.toMutableList()
-                            payedClassesList = classesList.filter{c -> c.status == 2}.toMutableList()
-                            scheduledClassesList = classesList.filter{c -> c.status == 3}.toMutableList()
+                            markedClassesList = classesList.filter { c -> c.status == 1 }.toMutableList()
+                            payedClassesList = classesList.filter { c -> c.status == 2 }.toMutableList()
+                            scheduledClassesList = classesList.filter { c -> c.status == 3 }.toMutableList()
                         },
                         { error ->
                             Toast.makeText(this, "No se encontraron clases! " + error, Toast.LENGTH_LONG).show()
@@ -112,9 +113,12 @@ class HomeActivity : AppCompatActivity(), ClassesFragment.OnListFragmentInteract
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
+        when (item?.itemId) {
             R.id.menu_profile -> {
                 startActivity(Intent(this, ProfileActivity::class.java))
+            }
+            R.id.menu_goto_tutorial -> {
+                startActivity(Intent(this, OnBoardingActivity::class.java))
             }
             R.id.menu_logout -> {
                 mPreferencesManager.setStringPreference("userName", "")
