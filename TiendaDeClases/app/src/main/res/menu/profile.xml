@@ -6,11 +6,11 @@
         android:title="@string/menu_profile" />
 
     <item
-        android:id="@+id/menu_goto_tutorial"
-        android:title="@string/see_tutorial" />
-
-    <item
         android:id="@+id/menu_logout"
         android:title="@string/menu_logout" />
+
+    <item
+        android:id="@+id/menu_goto_tutorial"
+        android:title="@string/see_tutorial" />
 
 </menu>

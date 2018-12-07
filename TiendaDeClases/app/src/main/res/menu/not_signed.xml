@@ -9,4 +9,8 @@
         android:id="@+id/menu_signup"
         android:title="@string/menu_sinup" />
 
+    <item
+        android:id="@+id/menu_goto_tutorial"
+        android:title="@string/see_tutorial" />
+
 </menu>
