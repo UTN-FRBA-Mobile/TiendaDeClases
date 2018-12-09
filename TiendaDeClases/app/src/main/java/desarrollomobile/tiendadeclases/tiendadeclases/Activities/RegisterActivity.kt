@@ -105,6 +105,7 @@ class RegisterActivity: UserModifyActivity() {
 
         return findViewById<EditText>(R.id.userName_edit).text.toString() != "" &&
                 findViewById<EditText>(R.id.password_edit).text.toString() != "" &&
+                findViewById<EditText>(R.id.email_edit).text.toString() != "" &&
                 mPlace != null
     }
 
@@ -112,7 +113,8 @@ class RegisterActivity: UserModifyActivity() {
 
         return User(findViewById<EditText>(R.id.userName_edit).text.toString(), findViewById<EditText>(R.id.password_edit).text.toString(),
                 findViewById<EditText>(R.id.firstName_edit).text.toString(), findViewById<EditText>(R.id.lastName_edit).text.toString(), mDisplayDate!!.text.toString(),
-                Position(mPlace!!.latitude, mPlace!!.longitude), imageToString(bitmap))
+                Position(mPlace!!.latitude, mPlace!!.longitude), imageToString(bitmap),
+                findViewById<EditText>(R.id.email_edit).text.toString())
     }
 
 }
