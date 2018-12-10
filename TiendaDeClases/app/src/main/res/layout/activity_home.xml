@@ -16,10 +16,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp"
             android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
             android:background="@color/colorPrimary"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat"
+            app:title="Home" />
 
         <FrameLayout
             android:id="@+id/HomeFrame"
